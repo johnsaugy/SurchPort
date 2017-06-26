@@ -59,13 +59,13 @@ body{
 
 .page{
 	position: relative;
-	padding-left:91px;
+	padding-left:90px;
 }
 
 .header{
 	position: relative;
 	height: 70px;
-	border-bottom: 1px solid #dbdee3;
+	border-bottom: 1px solid #c6ccd1;
 	line-height: 70px;
 	background: #ffffff;
 }
@@ -149,6 +149,18 @@ cursor: pointer;
 	background: #f1f6f7;
 }
 
+.content--ApplicantField{
+	background: #1b212d;
+	padding: 0 0 40px;
+   -moz-box-shadow:    inset 0 15px 15px #0f1219;
+   -webkit-box-shadow: inset 0 15px 15px #0f1219;
+   box-shadow:         inset 0 15px 15px #0f1219;
+}
+
+.content--ApplicantField .content--Heading h2{
+	color: #ffffff;
+}
+
 .content--Heading{
 	margin-top:30px;
 	padding:0 65px;
@@ -159,14 +171,84 @@ cursor: pointer;
 	color: #51838d;
 }
 
+
+.card--CandidateCard--Candidate{
+	width: 260px;
+	margin-top: 20px;
+	background: #ffffff;
+	overflow:hidden;
+}
+
+.candidate--Img{
+	position: relative;
+	float: left;
+	padding:7px 10px;
+	width: 35%;
+}
+
+.candidate--Img img{
+	width: 80px;
+	border:4px solid #e6e6e6;
+}
+
+.candidate--Info{
+	position: relative;
+	float: left;
+	padding:10px 10px;
+	width: 55%;
+}
+
+.candidate--Info h4{
+	font-weight: 600;
+	font-size:16px;
+	white-space: nowrap;
+  	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.candidate--Info p{
+	padding: 5px 0 0;
+	white-space: nowrap;
+  	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+
+
+.candidate--Footer{
+	position: relative;
+	float: left;
+	width: 100%;
+	height: 42px;
+	line-height: 42px;
+	background: #dbdee3;
+	border-top:1px solid #93a7ac;
+	margin-top:10px;
+}
+
+.candidate--Img img.approved{
+	border-color:#37c837;
+}
+
+.candidate--Img img.declined{
+	border-color:#ff2a2a;
+}
+
 /*======= 2) TYPOGRAPHY ==========*/
 /* 
 |  font-family: 'Source Sans Pro', sans-serif;
 |  font-weight: 400, 600, 700;
 */
+
+h1, h2, h3, h4{
+	margin:0;
+	font-weight: 400;
+}
 h2{
 	font-size:26px;
-	font-weight: 400;
+}
+
+p{
 	margin:0;
 }
 
@@ -183,6 +265,25 @@ h2{
 	color: #ffffff;
 	text-decoration: none;
 	outline: none;
+}
+
+a, a:hover, a:active, a:visited{
+	text-decoration: none;
+}
+
+a{
+color:#1784c7;
+}
+
+.caret-right {
+    border-bottom: 4px solid transparent;
+    border-top: 4px solid transparent;
+    border-left: 4px solid #000000;
+    display: inline-block;
+    height: 0;
+    opacity: 0.3;
+    vertical-align: top;
+    width: 0;
 }
 
 
