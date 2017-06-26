@@ -9,16 +9,180 @@
 
 body{
 	font-family: "Source Sans Pro", sans-serif;
+	background: #f1f6f7;
+}
+
+*{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /*======= 1) LAYOUT ==========*/
 
+.menubar{
+	position: fixed;
+	width:90px;
+	height:100%;
+	background: #2c3136;
+	border-right:2px solid #1f2326;
+}
+
+.menubar--Logo{
+	background: #3e454c;
+	width: 90px;
+	height: 70px;
+	border-bottom:2px solid #1f2326;
+	line-height: 70px;
+	padding:0 24px;
+}
+
+.menubar--Nav ul{
+	list-style: none;
+	padding: 0;
+}
+
+.menubar--Nav ul li{
+	padding: 20px 32px;
+}
+
+.menubar--Nav ul li:first-child{
+	padding-top: 25px;
+}
+
+.menubar--Nav ul li:hover{
+	opacity: .25;
+	transition: .5s;
+}
+
+.page{
+	position: relative;
+	padding-left:91px;
+}
+
+.header{
+	position: relative;
+	height: 70px;
+	border-bottom: 1px solid #dbdee3;
+	line-height: 70px;
+	background: #ffffff;
+}
+
+.header--Search{
+	position: relative;
+	height: 70px;
+	padding:0;
+}
+
+.header--Search__Input{
+	height: 67px;
+	width:393px;
+	border:none;
+	border-right:1px solid #dbdee3;
+	outline:none;
+	padding:0 100px 0 52px;
+}
+
+.header--Search__Input:hover{
+	background: #f9f9f9;
+	transition: .5s;
+}
+
+.header--Search img{
+	position: absolute;
+	left:22px;
+	top:29px;
+}
+
+.header--Search__Dropdown{
+	position: absolute;
+	height:26px;
+	line-height: 20px;
+	padding: 0 15px;
+	top:25px;
+	right:50px;
+	background: #37c8ab;
+	border-bottom: 2px solid #2da18a;
+	font-size:12px;
+}
+
+.header--Search__Dropdown .caret{
+	margin-left:5px;
+}
+
+
+.header--Search__Input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #b4c3c8;
+  font-size:16px;
+}
+.header--Search__Input::-moz-placeholder { /* Firefox 19+ */
+  color: #b4c3c8;
+  font-size:16px;
+}
+.header--Search__Input:-ms-input-placeholder { /* IE 10+ */
+  color: #b4c3c8;
+  font-size:16px;
+}
+.header--Search__Input:-moz-placeholder { /* Firefox 18- */
+  color: #b4c3c8;
+  font-size:16px;
+}
+
+.header--Interface ul{
+	float: right;
+	list-style: none;
+}
+
+.header--Interface ul li{
+	display: inline;
+	padding:0 9px;
+}
+
+.header--Interface ul li:hover{
+cursor: pointer;
+}
+
+.content{
+	padding: 0;
+	background: #f1f6f7;
+}
+
+.content--Heading{
+	margin-top:30px;
+	padding:0 65px;
+
+}
+
+.content h2{
+	color: #51838d;
+}
 
 /*======= 2) TYPOGRAPHY ==========*/
 /* 
 |  font-family: 'Source Sans Pro', sans-serif;
 |  font-weight: 400, 600, 700;
 */
+h2{
+	font-size:26px;
+	font-weight: 400;
+	margin:0;
+}
 
+/*======= 3) UI ==========*/
+
+.btn{
+	border-radius: 5px;
+	font-weight: 600;
+	outline: none;
+	color: #ffffff;
+}
+
+.btn:hover{
+	color: #ffffff;
+	text-decoration: none;
+	outline: none;
+}
 
 
