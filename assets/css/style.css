@@ -239,7 +239,7 @@ cursor: pointer;
 	background: #dbdee3;
 	border-top:1px solid #93a7ac;
 	margin-top:10px;
-	background-image: url("/assets/imgs/starsBG.png");
+	background-image: url("../imgs/starsBG.png");
 	background-repeat: no-repeat;
 	background-position: center;
 
@@ -284,7 +284,7 @@ cursor: pointer;
 	height:500px;
 	border: 4px dashed #a9c3e7;
 	border-radius: 5px;
-	background: url("/assets/imgs/dragIcon.png") no-repeat;
+	background: url("../imgs/dragIcon.png") no-repeat;
 	background-position: center 40px;
 }
 
