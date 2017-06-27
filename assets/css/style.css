@@ -171,6 +171,21 @@ cursor: pointer;
 	color: #51838d;
 }
 
+.nextResult{
+	position: absolute;
+	right:0;
+	top:0;
+	width:50px;
+	height:100%;
+	position: absolute;
+	background: #252e3e;
+	cursor:pointer;
+}
+
+.nextResult:hover{
+	background: #2e394c;
+}
+
 
 .card--CandidateCard--Candidate{
 	width: 260px;
@@ -224,6 +239,18 @@ cursor: pointer;
 	background: #dbdee3;
 	border-top:1px solid #93a7ac;
 	margin-top:10px;
+	background-image: url("/assets/imgs/starsBG.png");
+	background-repeat: no-repeat;
+	background-position: center;
+
+}
+
+
+.starsFill{
+    position: absolute;
+    left: 85px;
+    top: -3px;
+    overflow:hidden;
 }
 
 .candidate--Img img.approved{
@@ -298,6 +325,7 @@ p{
 
 a, a:hover, a:active, a:visited{
 	text-decoration: none;
+	cursor: pointer;
 }
 
 .btnColor1{
@@ -310,14 +338,16 @@ color:#1784c7;
 }
 
 .caret-right {
-    border-bottom: 4px solid transparent;
-    border-top: 4px solid transparent;
-    border-left: 4px solid #000000;
+	position: absolute;
+    border-bottom: 5px solid transparent;
+    border-top: 5px solid transparent;
+    border-left: 5px solid #ffffff;
     display: inline-block;
     height: 0;
-    opacity: 0.3;
     vertical-align: top;
     width: 0;
+    top:50%;
+    left:45%;
 }
 
 
