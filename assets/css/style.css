@@ -90,9 +90,9 @@ body{
 	background: #ffffff;
 	border-radius:5px;
 	z-index:2;
-   -moz-box-shadow:     0 5px 8px #b7d1d6;
-   -webkit-box-shadow:  0 5px 8px #b7d1d6;
-    box-shadow:          0 8px 8px #b7d1d6;
+   -moz-box-shadow:     0 5px 3px #b7d1d6;
+   -webkit-box-shadow:  0 5px 3px #b7d1d6;
+    box-shadow:          0 5px 3px #b7d1d6;
 }
 
 .header--Search__Input{
@@ -149,6 +149,10 @@ width:50%;
   font-size:16px;
 }
 
+.header--Interface{
+	z-index:5;
+}
+
 .header--Interface ul{
 	float: right;
 	list-style: none;
@@ -182,7 +186,7 @@ cursor: pointer;
 }
 
 .content{
-	padding:0 0 65px;
+	padding:0 0 300px;
 	background: #f1f6f7;
 }
 
@@ -202,9 +206,19 @@ cursor: pointer;
 	height: 328px;
 	background: #ffffff;
 	margin:45px 0 0 70px;
-   -moz-box-shadow:     0 5px 8px #b7d1d6;
-   -webkit-box-shadow:  0 5px 8px #b7d1d6;
+   -moz-box-shadow:     0 8px 8px #b7d1d6;
+   -webkit-box-shadow:  0 8px 8px #b7d1d6;
     box-shadow:          0 8px 8px #b7d1d6;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+    cursor: grab;
+}
+
+.card--Result:hover{
+   -moz-box-shadow:     0 12px 20px #b7d1d6;
+   -webkit-box-shadow:  0 12px 20px #b7d1d6;
+    box-shadow:         0 12px 20px #b7d1d6;
+    transition: .5s;
 }
 
 .card--Result__Img{
