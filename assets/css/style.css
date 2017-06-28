@@ -5,7 +5,7 @@
 ================================================*/
 
 /* Google Fonts */
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700');
 
 body{
 	font-family: "Source Sans Pro", sans-serif;
@@ -20,18 +20,24 @@ body{
     -moz-osx-font-smoothing: grayscale;
 }
 
+.wrap{
+	width:1128px;
+	margin:auto;
+}
+
 /*======= 1) LAYOUT ==========*/
 
 .menubar{
 	position: fixed;
 	width:90px;
 	height:100%;
-	background: #2c3136;
+	background: #1c1c24;
 	border-right:2px solid #1f2326;
+	z-index:2;
 }
 
 .menubar--Logo{
-	background: #3e454c;
+	background: #0066ff;
 	width: 90px;
 	height: 70px;
 	border-bottom:2px solid #1f2326;
@@ -59,30 +65,44 @@ body{
 
 .page{
 	position: relative;
-	padding-left:90px;
+	margin-left:90px;
 }
 
 .header{
 	position: relative;
-	height: 70px;
+	height: 300px;
 	border-bottom: 1px solid #c6ccd1;
-	line-height: 70px;
+	line-height: 60px;
 	background: #ffffff;
+	background-image: url("../imgs/headerBG.png");
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 .header--Search{
-	position: relative;
+	position: absolute;
+	left:calc(50% - 294px);
+	bottom:-35px;
 	height: 70px;
 	padding:0;
+	font-size:16px;
+	width:588px;
+	background: #ffffff;
+	border-radius:5px;
+	z-index:2;
+   -moz-box-shadow:     0 5px 8px #b7d1d6;
+   -webkit-box-shadow:  0 5px 8px #b7d1d6;
+    box-shadow:          0 8px 8px #b7d1d6;
 }
 
 .header--Search__Input{
-	height: 67px;
-	width:393px;
+	float:left;
+	height: 70px;
 	border:none;
-	border-right:1px solid #dbdee3;
 	outline:none;
-	padding:0 100px 0 52px;
+	padding:0 20px 0 52px;
+	border-radius: 5px;
+	color:#819aa3;
 }
 
 .header--Search__Input:hover{
@@ -90,28 +110,27 @@ body{
 	transition: .5s;
 }
 
-.header--Search img{
+.header--Search img#searchImg{
 	position: absolute;
 	left:22px;
 	top:29px;
 }
 
-.header--Search__Dropdown{
+.header--Search img#locationSearchImg{
 	position: absolute;
-	height:26px;
-	line-height: 20px;
-	padding: 0 15px;
-	top:25px;
-	right:50px;
-	background: #37c8ab;
-	border-bottom: 2px solid #2da18a;
-	font-size:12px;
+	left:324px;
+	top:29px;
 }
 
-.header--Search__Dropdown .caret{
-	margin-left:5px;
+#bizSearch{
+border-right:1px solid #dbdee3;	
+width:50%;
 }
 
+#locationSearch{
+	position: relative;
+	width:50%;
+}
 
 .header--Search__Input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #b4c3c8;
@@ -144,121 +163,88 @@ body{
 cursor: pointer;
 }
 
-.content{
-	padding: 0;
-	background: #f1f6f7;
-}
 
-.content--ApplicantField{
-	background: #1b212d;
-	padding: 0 0 40px;
-   -moz-box-shadow:    inset 0 15px 15px #0f1219;
-   -webkit-box-shadow: inset 0 15px 15px #0f1219;
-   box-shadow:         inset 0 15px 15px #0f1219;
-}
-
-.content--ApplicantField .content--Heading h2{
-	color: #ffffff;
-}
-
-.content--Heading{
-	margin-top:30px;
-	padding:0 65px;
-
-}
-
-.content h2, .content h4{
-	color: #51838d;
-}
-
-.nextResult{
-	position: absolute;
-	right:0;
-	top:0;
-	width:50px;
-	height:100%;
-	position: absolute;
-	background: #252e3e;
-	cursor:pointer;
-}
-
-.nextResult:hover{
-	background: #2e394c;
-}
-
-
-.card--CandidateCard--Candidate{
-	width: 260px;
-	margin-top: 20px;
-	background: #ffffff;
-	overflow:hidden;
-}
-
-.candidate--Img{
-	position: relative;
-	float: left;
-	padding:7px 10px;
-	width: 35%;
-}
-
-.candidate--Img img{
-	width: 80px;
-	border:4px solid #e6e6e6;
-}
-
-.candidate--Info{
-	position: relative;
-	float: left;
-	padding:10px 10px;
-	width: 55%;
-}
-
-.candidate--Info h4{
-	font-weight: 600;
-	font-size:16px;
-	white-space: nowrap;
-  	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-.candidate--Info p{
-	padding: 5px 0 0;
-	white-space: nowrap;
-  	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-
-
-.candidate--Footer{
+.header--Hero{
 	position: relative;
 	float: left;
 	width: 100%;
-	height: 42px;
-	line-height: 42px;
-	background: #dbdee3;
-	border-top:1px solid #93a7ac;
-	margin-top:10px;
+	text-align:center;
+	color: #ffffff;
+}
+
+.header--Hero h1, .header--Hero h4{
+	font-weight: 200;
+	line-height: 1.2em;
+}
+
+.header--Hero h4{
+	margin-top:30px;
+}
+
+.content{
+	padding:0 0 65px;
+	background: #f1f6f7;
+}
+
+.content--Heading{
+	margin:110px 70px 0;
+}
+
+
+.content h2, .content h3{
+	color: #51838d;
+}
+
+.card--Result{
+	position: relative;
+	float: left;
+	width: 325px;
+	height: 328px;
+	background: #ffffff;
+	margin:45px 0 0 70px;
+   -moz-box-shadow:     0 5px 8px #b7d1d6;
+   -webkit-box-shadow:  0 5px 8px #b7d1d6;
+    box-shadow:          0 8px 8px #b7d1d6;
+}
+
+.card--Result__Img{
+	width: 100%;
+	height: 222px;
+	background: #666;
+}
+
+.card--Result__Info{
+	padding:20px 10px;
+}
+
+.card--Rating, .card--Location{
+	float: left;
+	line-height:40px;
+	width:50%;
+	color:#819aa3;
+	font-size:18px;
+}
+
+.card--Rating{
 	background-image: url("../imgs/starsBG.png");
 	background-repeat: no-repeat;
-	background-position: center;
-
+	background-position: left center;
 }
 
-
-.starsFill{
-    position: absolute;
-    left: 85px;
-    top: -3px;
-    overflow:hidden;
+.card--Rating__Overlay{
+	width: 90px;
+	overflow-x:hidden; 
 }
 
-.candidate--Img img.approved{
-	border-color:#37c837;
+.card--Rating__Overlay img{
+	position: relative;
+	top:-2px;
 }
 
-.candidate--Img img.declined{
-	border-color:#ff2a2a;
+.card--Location p>span{
+	position: relative;
+	padding-right: 10px;
+	top:-2px;
 }
 
 .content--ComparisonField{
@@ -289,10 +275,7 @@ cursor: pointer;
 }
 
 /*======= 2) TYPOGRAPHY ==========*/
-/* 
-|  font-family: 'Source Sans Pro', sans-serif;
-|  font-weight: 400, 600, 700;
-*/
+
 
 h1, h2, h3, h4{
 	margin:0;
