@@ -1,7 +1,7 @@
 var searchTerm = document.getElementsByClassName("header--Search__Input")[0];
 var searchLocation = document.getElementsByClassName("header--Search__Input")[0];
 var searchLocation = document.getElementsByClassName("header--Search__Input")[0];
-var runFunc = document.getElementsByClassName("btn6")[0];
+var runFunc = document.getElementsByClassName("runFunction")[0];
 var results = document.getElementsByClassName("results")[0];
 
 runFunc.addEventListener("click", function(){
