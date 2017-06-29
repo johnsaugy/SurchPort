@@ -31,11 +31,13 @@
 			<!-- HEADER -->
 				<div class="row">
 					<div class="header--Search">
-						<input type="text" id="bizSearch" class="header--Search__Input" placeholder="What are you looking for?">
-						<img src="assets/imgs/searchIcon.png" id="searchImg" alt="">
-						<input type="text" id="locationSearch" class="header--Search__Input" placeholder="Location">
-						<img src="assets/imgs/locationSearch.png" id="locationSearchImg" alt="">
-						<div class="runFunction"><button type="button">Run function</button></div>
+						<form id="searchForm">
+							<input type="text" id="bizSearch" class="header--Search__Input" placeholder="What are you looking for?">
+							<img src="assets/imgs/searchIcon.png" id="searchImg" alt="">
+							<input type="text" id="locationSearch" class="header--Search__Input" placeholder="Location">
+							<img src="assets/imgs/locationSearch.png" id="locationSearchImg" alt="">
+							<button type="submit" id="searchSubmit"></button>
+						</form>
 					</div>
 					<div class="header--Interface pull-right">
 						<ul>
