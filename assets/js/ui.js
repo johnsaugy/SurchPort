@@ -1,4 +1,4 @@
-// testing pull request
+// John owns the repository. This is an exercise in pull requests.
 
 $(document).ready(function(){
 
