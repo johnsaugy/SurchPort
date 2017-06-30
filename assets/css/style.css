@@ -207,14 +207,19 @@ cursor: pointer;
 	position: relative;
 	line-height:20px;
 	float:left;
-	margin-top:100px;
 	padding:20px 65px;
-	border-top: 1px solid #b1cdd2;
+	border-top: 1px solid #ffffff;
 }
 
 .content--Footer p{
 	color: #51838d;
 	font-weight:600;
+}
+
+.results{
+	border-bottom: 1px solid #b1cdd2;
+	overflow: hidden;
+	padding-bottom: 165px;
 }
 
 .card--Result{
