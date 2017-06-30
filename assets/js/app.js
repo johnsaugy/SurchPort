@@ -1,17 +1,72 @@
 $(document).ready(function(){
 
+//===============================================================================================================
+//  appProps Object
+//---------------------------------------------------------------------------------------------------------------
+//
+//  Used to store API Keys.
+//
+//  appProps{} -
+//              fs{} - Stores Foursquare API keys.
+//              gm{} - Will store Google Maps keys.
+//
+//===============================================================================================================
+
 const appProps = {
-    fs: { //========================    FOURSQUARE API    =======================================================
+    fs: { //  FOURSQUARE API    
         clientID: "IHMKAGTH1OPVZB11OJUS3YVATBRZGA4GXJFAAIVLJHSVYIVX",
         clientSECRET: "WN5TRJG5MXTFC3IXRWFFZ4WVELP13KPFB42DXZVJJ3MRLDTA",
-    },    //=====================================================================================================
-    googleMaps: {},
+    },    
+    gm: {},
 }
+
 //===============================================================================================================
 // END appProps Object
 //===============================================================================================================
 
 
+
+
+
+//===============================================================================================================
+//  appFuncs Object
+//---------------------------------------------------------------------------------------------------------------
+//
+// appFuncs{} -
+//
+//          search{} -
+//                  listenSearch - On search submit, grabs the venues and location values, validates them, and 
+//                                 passes them on to initSearch.
+//
+//                  initSearch   - Takes the values from  listenSearch and uses them inside our AJAX call to the
+//                                 FOURSQUARE API. Gets the necessary variables (Name, Rating, Location, Photos) 
+//                                 and passes them on to printSearchResults.
+// 
+//                  printSearchResults -Takes the values from initSearch and renders them onto the page as our
+//                                      search results
+//
+//          click{} -
+//                  clickCard - Will be used in the creation of our pop-up dialog box with all the relevant venue
+//                              information.
+//
+//          ui{} -
+//                  starRating - Takes the rating value from initSearch, converts it and returns it to be used in 
+//                               the rendering of the 5-Star field.
+// 
+//                  listenScroll - Listens for and tracks the users scrolling activities. Calls listenScrollDown and
+//                                 listenScrollUp.
+//
+//                  listenScrollDown - When the user scrolls down past a certain point, changes the appearance of 
+//                                     the header.
+//
+//                  listenScrollUp - When the user scrolls up past a certain point, changes the appearance of 
+//                                   the header.
+//
+//                  messages{} -
+//                             warning - Takes the value of a warning message passed to it from another function
+//                                       and renders it to the screen.
+//
+//===============================================================================================================
 
 var appFuncs ={
     search:{
