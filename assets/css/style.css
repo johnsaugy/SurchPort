@@ -190,7 +190,7 @@ cursor: pointer;
 }
 
 .content{
-	padding:0 0 300px;
+	padding:0 0;
 	background: #f1f6f7;
 }
 
@@ -201,6 +201,20 @@ cursor: pointer;
 
 .content h2, .content h3{
 	color: #51838d;
+}
+
+.content--Footer{
+	position: relative;
+	line-height:20px;
+	float:left;
+	margin-top:100px;
+	padding:20px 65px;
+	border-top: 1px solid #b1cdd2;
+}
+
+.content--Footer p{
+	color: #51838d;
+	font-weight:600;
 }
 
 .card--Result{
@@ -381,7 +395,7 @@ p{
 
 
 
-a, a:hover, a:active, a:visited{
+a, a:hover, a:active, a:visited, a:focus{
 	text-decoration: none;
 	cursor: pointer;
 }

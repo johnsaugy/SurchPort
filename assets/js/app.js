@@ -94,6 +94,7 @@ var appFuncs ={
             })
             .done(function(response){
                 // API Object Path
+                console.log(response);
                 const biz = response.response.groups[0].items;
 
                 $(".results").html('');
@@ -104,7 +105,8 @@ var appFuncs ={
                     var bizName = biz[i].venue.name;
                     var bizRating = biz[i].venue.rating;
                     var bizCity = biz[i].venue.location.city;
-
+                    var bizId = biz[i].venue.id;
+                    
                     // Build Venue Image Url
                     var imgPrefix = biz[i].venue.photos.groups[0].items[0].prefix;
                     var imgSize = "325x222";
@@ -114,13 +116,13 @@ var appFuncs ={
                     // Get Rating Div Width value
                     var starWidth = appFuncs.ui.starRating(bizRating);
 
-                    appFuncs.search.printSearchResults(bizName, starWidth, bizCity, bizImage);
+                    appFuncs.search.printSearchResults(bizName, starWidth, bizCity, bizImage, bizId);
                 }
             });
         },
-        printSearchResults: function (bizName, starWidth, bizCity, bizImage){
+        printSearchResults: function (bizName, starWidth, bizCity, bizImage, bizId){
             $(".results").append(`
-                <div class="card--Result">
+                <div class="card--Result" data-venueid="${[bizId]}">
                     <div class="card--Result__Img">
                         <img src="${[bizImage]}" alt="" width="100%" class="img-responsive">
                         <div class="shadow"></div>
@@ -143,32 +145,13 @@ var appFuncs ={
     click:{
         clickCard: function(){
 
-            // $(document).on("click", ".card--Result", function(){
+            $(document).on("click", ".card--Result", function(){
             
-            //     var testdialog = $(".biz--Modal");
-            //     $(testdialog).appendTo("body");
-
-            //     $(".biz--Modal").html(`
-            //     <div >
-            //       <p class="dialog">This is an animated dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
-            //     </div>
-            //     `);
-
-               
-
-            //     $(".biz--Modal").dialog({
-            //           draggable:false,
-            //           resizable: false,
-            //           width: "50%",
-            //           title: "",
-            //           position: { my: "top", at: "top", of: window },
-            //           modal: true,
-            //         });
+                var venueID = $(this).data("venueid");
 
 
-
-            //     //console.log("clicked card");
-            // })
+                alert(venueID);
+            })
         },
     },
     ui:{
