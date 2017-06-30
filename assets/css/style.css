@@ -206,14 +206,15 @@ cursor: pointer;
 .card--Result{
 	position: relative;
 	float: left;
-	width: 520px;
-	height: 100px;
+	width: 325px;
+	height: 328px;
 	background: #ffffff;
-	margin:45px 0 0 70px;
+	margin:65px 0 0 70px;
    -moz-box-shadow:     0 8px 8px #b7d1d6;
    -webkit-box-shadow:  0 8px 8px #b7d1d6;
     box-shadow:          0 8px 8px #b7d1d6;
     cursor: pointer;
+    border: 1px solid #c6ccd1;
 }
 
 .card--Result:hover{
@@ -226,14 +227,26 @@ cursor: pointer;
 .card--Result__Img{
 	position: relative;
 	float: left;
-	width: 100px;
-	height: 100px;
+	width: 325px;
+	height: 222px;
 	background: #666;
 	overflow: hidden;
 }
 
+.shadow{
+	position: absolute;
+	top:0;
+	width:100%;
+	height: 100%;
+}
+.shadow:hover{
+   -moz-box-shadow:    inset 0 0 150px #000000;
+   -webkit-box-shadow: inset 0 0 150px #000000;
+   box-shadow:         inset 0 0 150px #000000;
+}
+
 .card--Result__Info{
-	padding:10px 20px;
+	padding:20px 15px;
 	overflow: hidden;
 }
 
@@ -245,7 +258,7 @@ cursor: pointer;
 
 .card--Rating, .card--Location{
 	float: left;
-	line-height:90px;
+	line-height:50px;
 	color:#819aa3;
 	font-size:18px;
 }
@@ -261,7 +274,7 @@ cursor: pointer;
 }
 
 .card--Rating__Overlay{
-	width: 90px;
+	width: 100px;
 	overflow-x:hidden; 
 }
 

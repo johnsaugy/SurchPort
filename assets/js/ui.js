@@ -4,10 +4,10 @@ $(document).ready(function(){
 
 	 //================================ Star Ratings ================================
 
-		var starsRating = 4.5/5;
-		var starsWidthNum = 90;
+		var starsRating = 9.2/10;
+		var starsWidthNum = 100;
 		var newWidth = starsRating * starsWidthNum;
-		var starsWidth = $(".card--Rating__Overlay").css("width", newWidth+"px");
+		var starsWidth = $(".card--Rating__Overlay").css("width", (newWidth+1)+"%");
 
 	//===============================================================================
 
