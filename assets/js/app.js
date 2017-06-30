@@ -23,7 +23,9 @@ var appFuncs ={
                 var locationSearch = $("#locationSearch").val().trim();
 
                 if (bizSearch === "" || locationSearch === ""){
-                    alert("Must provide a search term and location.")
+                    var warningMessage = "Oops! Make sure that all search fields are filled out.";
+                    $(".warning--Message").remove();
+                    appFuncs.ui.messages.warning(warningMessage);
                 } else{
                     appFuncs.search.initSearch(bizSearch, locationSearch);
                 }
@@ -31,7 +33,7 @@ var appFuncs ={
         },
         initSearch: function(search, location){
             $.ajax({
-                url:`https://api.foursquare.com/v2/venues/explore?v=20170629&query=${[search]}&near=${[location]}&limit=9&venuePhotos=1&client_id=${[appProps.fs.clientID]}
+                url:`https://api.foursquare.com/v2/venues/explore?v=20170630&query=${[search]}&near=${[location]}&limit=9&venuePhotos=1&client_id=${[appProps.fs.clientID]}
                 &client_secret=${[appProps.fs.clientSECRET]}`,
                 method: "GET"
             })
@@ -81,6 +83,37 @@ var appFuncs ={
                     </div>
                 </div>
             `);
+        },
+    },
+    click:{
+        clickCard: function(){
+
+            // $(document).on("click", ".card--Result", function(){
+            
+            //     var testdialog = $(".biz--Modal");
+            //     $(testdialog).appendTo("body");
+
+            //     $(".biz--Modal").html(`
+            //     <div >
+            //       <p class="dialog">This is an animated dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+            //     </div>
+            //     `);
+
+               
+
+            //     $(".biz--Modal").dialog({
+            //           draggable:false,
+            //           resizable: false,
+            //           width: "50%",
+            //           title: "",
+            //           position: { my: "top", at: "top", of: window },
+            //           modal: true,
+            //         });
+
+
+
+            //     //console.log("clicked card");
+            // })
         },
     },
     ui:{
@@ -158,6 +191,60 @@ var appFuncs ={
                 })
             }
         },
+        messages: {
+            warning: function (message){
+                var msg = `
+                            <div class="app--Message">
+                                <p>${[message]}</p>
+                                <button class="closeWarning"><img src="assets/imgs/closeWarning.png" alt="close" /></button>
+                            </div>
+                          `;
+
+                    $.extend( $.ui.dialog.prototype.options.classes, {
+                        "ui-dialog": "warning--Message",
+                        "ui-dialog-titlebar": "modal-header",
+                        "ui-dialog-title": "modal-title",
+                        "ui-dialog-titlebar-close": "close",
+                        "ui-dialog-content": "warning--Message__Body",
+                        "ui-dialog-buttonpane": "warning--Message__Footer",
+                    });
+
+
+
+                   $(msg).dialog({
+                      show: { effect: "slideDown", duration: 400 },
+                      draggable:false,
+                      resizable: false,
+                      width: "425px",
+                      title: "",
+                      position: { my: "center", at: "center top", of: ".page" },
+                      buttons: [
+                        {
+                          text: "OK",
+                          click: function() {
+                            $( this ).dialog( "close" );
+                          }
+                     
+                        }
+                      ],
+
+                    });
+  
+                   $(".warning--Message").css({
+                    position: "relative",
+                  });
+
+
+                   $("div.ui-dialog-buttonset > button").addClass("btn btn--FullWidth btnColorWarning");
+
+                   $(".closeWarning").on("click", function(){
+                    $(".warning--Message").remove();
+                   })
+
+
+            }
+
+        },
 
     }
 }
@@ -171,5 +258,8 @@ appFuncs.search.listenSearch();
 
 // Listen for Scroll Event
 appFuncs.ui.listenScroll();
+
+// Listen for Click Events
+appFuncs.click.clickCard();
 
 })
