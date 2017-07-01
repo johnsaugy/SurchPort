@@ -81,7 +81,11 @@ var appFuncs ={
                     var warningMessage = "Oops! Make sure that all search fields are filled out.";
                     $(".warning--Message").remove();
                     appFuncs.ui.messages.warning(warningMessage);
-                } else{
+                } else if(locationSearch.length === 2){
+                    var warningMessage = "Oops! Make sure to include a town with your location.";
+                    $(".warning--Message").remove();
+                    appFuncs.ui.messages.warning(warningMessage);
+                }else{
                     appFuncs.search.initSearch(bizSearch, locationSearch);
                 }
             });
@@ -150,7 +154,63 @@ var appFuncs ={
                 var venueID = $(this).data("venueid");
 
 
-                alert(venueID);
+                var modal = `
+                            <div class="result--Modal">
+                                <div class="testModal">${[venueID]}</div>
+                            </div>
+                          `;
+
+                    $.extend( $.ui.dialog.prototype.options.classes, {
+                        "ui-dialog": "app--Modal",
+                        "ui-dialog-titlebar": "modal-header",
+                        "ui-dialog-title": "modal-title",
+                        "ui-dialog-titlebar-close": "close",
+                        "ui-dialog-content": "app--Modal__Body",
+                        "ui-dialog-buttonpane": "app--Modal__Footer",
+                    });
+
+
+
+                   $(modal).dialog({
+                      show: { effect: "fadeIn", duration: 200 },
+                      draggable:false,
+                      resizable: false,
+                      width: "100%",
+                      title: "",
+                      position: { my: "center", at: "center top", of: ".page" },
+                      buttons: [
+                        {
+                          text: "OK",
+                          click: function() {
+                            $( this ).dialog( "close" );
+                          }
+                     
+                        }
+                      ],
+
+                    });
+
+                   $(".result--Modal").css({
+                    position: "fixed",
+                    "z-index": "10",
+                    background: "rgba(28, 28, 36, .95)",
+                    left: "0",
+                    top: "0",
+                    width: "100%",
+                    height: "100%",
+                    "overflow-x": "hidden",
+                   });
+
+                $(".app--Modal").css({
+                    "overflow-x": "hidden",
+                    left: "0",
+                    "z-index": "10",
+                   });
+
+                $(".result--Modal").on("click", function(){
+                    $(this).remove();
+                })
+
             })
         },
     },
@@ -253,7 +313,7 @@ var appFuncs ={
                       show: { effect: "slideDown", duration: 400 },
                       draggable:false,
                       resizable: false,
-                      width: "425px",
+                      width: "445px",
                       title: "",
                       position: { my: "center", at: "center top", of: ".page" },
                       buttons: [
