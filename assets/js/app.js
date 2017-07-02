@@ -285,8 +285,11 @@ var appFuncs ={
                                             <h2>Photos</h2>
                                             <a href="#">See more</a>
                                         </div>
-                                        <div class="photosCard biz--Modal__card">
-                                            Photos
+                                        <div class="photosCard biz--Modal__card ">
+                                            <a href="#"><img src="assets/imgs/ui1.jpg" class="img-responsive" alt="" /></a>
+                                            <a href="#"><img src="assets/imgs/ui2.png" class="img-responsive" alt="" /></a>
+                                            <a href="#"><img src="assets/imgs/ui3.jpg" class="img-responsive" alt="" /></a>
+                                            <a href="#"><img src="assets/imgs/ui4.jpg" class="img-responsive" alt="" /></a>
                                         </div>
                                     </div>
                                 </div>

@@ -471,10 +471,11 @@ div.ui-dialog-buttonset{
 
 .biz--Modal{
 	position: relative;
-	width:75%;
+	width:999px;
 	margin:90px auto 0;
 	background: #f1f6f7;
 	border-radius: 5px;
+	padding-bottom: 50px;
 }
 
 .biz--Modal__sidebar{
@@ -709,4 +710,19 @@ width:35%;
 	margin-top: 15px;
 	font-size:16px;
 	padding-bottom:15px;
+}
+
+.photosCard{
+	position: relative;
+	margin-top:35px;
+	float: left;
+	width:100%;
+	padding: 10px 20px;
+	overflow:hidden;
+}
+
+.photosCard img{
+	position: relative;
+	float: left;
+	width:25%;
 }
