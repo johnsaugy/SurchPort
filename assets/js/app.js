@@ -193,13 +193,13 @@ var appFuncs ={
                                                     </div>
                                                 </div>
                                                 <div class="biz--ContactInfo">
-                                                    <div class="biz--ContactIcon"><img src="assets/imgs/linkModal.png" alt="address"/></div>
+                                                    <div class="biz--ContactIcon"><img src="assets/imgs/linkModal.png" alt="website"/></div>
                                                     <div class="biz--ContactDetails">
                                                         <a href="#">www.thaitogo.com</a>
                                                     </div>
                                                 </div>
                                                 <div class="biz--ContactInfo">
-                                                    <div class="biz--ContactIcon"><img src="assets/imgs/phoneModal.png" alt="address"/></div>
+                                                    <div class="biz--ContactIcon"><img src="assets/imgs/phoneModal.png" alt="phone"/></div>
                                                     <div class="biz--ContactDetails">
                                                         <phone>(240) 445-7859</phone>
                                                     </div>
@@ -208,7 +208,7 @@ var appFuncs ={
                                         </div>
                                         <div class="biz--HoursCard biz--InfoCard biz--Modal__card">
                                             <div class="biz--InfoCard__content">
-                                                <div class="hours--Icon"><img src="assets/imgs/hoursModal.png" alt="address"/></div>
+                                                <div class="hours--Icon"><img src="assets/imgs/hoursModal.png" alt="hours"/></div>
                                                 <div class="hours--Status">Closed until 6 PM</div>
                                                 <div class="hours--Details">
                                                     <div class="hours--Slot">
@@ -235,7 +235,59 @@ var appFuncs ={
                                         </div>
                                     </div>
                                     <div class="biz--Modal__content">
-                                        content
+                                        <div class="biz--Modal__actions">
+                                            <ul>
+                                                <li><button class="btn btnColorGreen">ADD TO FAVORITES</button></li>
+                                                <li><button class="btn btnColorBlue">ADD TO LIST</button></li>
+                                                <li>
+                                                    <a href="#"><img src="assets/imgs/shareModal.png" alt="share"/></a>
+                                                </li>
+                                                <li>
+                                                    <a href="#"><img src="assets/imgs/optionsModal.png" alt="other options"/></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="biz--Modal__Heading">
+                                            <h2>Tips</h2>
+                                            <a href="#">See more</a>
+                                        </div>
+                                        <div class="tipCard biz--Modal__card">
+                                            <div class="tipCard--Header">
+                                                <img src="assets/imgs/ui3.jpg" class="tipCard--UserImg img-circle " alt="user image" />
+                                                <h4 class="tipCard--UserName">Joseph Smith</h4>
+                                                <a href="#" class="tipCard--Options" ><img src="assets/imgs/tipCardOptions.png" alt="options" /></a>
+                                            </div>
+                                            <div class="tipCard--Tip">
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam fuga non quasi amet fugit dolorum tenetur pariatur voluptatem ea iusto eaque, dolor suscipit soluta illo veniam aut mollitia cum veritatis.
+                                            </div>
+                                        </div>
+                                        <div class="tipCard biz--Modal__card">
+                                            <div class="tipCard--Header">
+                                                <img src="assets/imgs/ui4.jpg" class="tipCard--UserImg img-circle " alt="user image" />
+                                                <h4 class="tipCard--UserName">Anyanka Chase</h4>
+                                                <a href="#" class="tipCard--Options" ><img src="assets/imgs/tipCardOptions.png" alt="options" /></a>
+                                            </div>
+                                            <div class="tipCard--Tip">
+                                                <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero iste suscipit provident vitae quos tenetur explicabo molestias natus, recusandae hic nesciunt repellat odit facere necessitatibus, quae culpa molestiae ab! Sit!</div><div>Mollitia, deleniti non quas laborum architecto facere quisquam. Soluta cupiditate provident nobis voluptates, recusandae voluptatem fugiat atque sequi eos a voluptate neque incidunt odit vel nisi ullam reprehenderit, illo accusantium.</div>
+                                            </div>
+                                        </div>
+                                        <div class="tipCard biz--Modal__card">
+                                            <div class="tipCard--Header">
+                                                <img src="assets/imgs/ui1.jpg" class="tipCard--UserImg img-circle " alt="user image" />
+                                                <h4 class="tipCard--UserName">Alex Harris</h4>
+                                                <a href="#" class="tipCard--Options" ><img src="assets/imgs/tipCardOptions.png" alt="options" /></a>
+                                            </div>
+                                            <div class="tipCard--Tip">
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum pariatur quaerat possimus minima numquam, ab necessitatibus beatae nisi quo inventore ad, libero tenetur animi eveniet rem totam culpa, doloribus eos.
+                                            </div>
+                                        </div>
+                                        <div class="biz--Modal__Heading">
+                                            <h2>Photos</h2>
+                                            <a href="#">See more</a>
+                                        </div>
+                                        <div class="photosCard biz--Modal__card">
+                                            Photos
+                                        </div>
                                     </div>
                                 </div>
                             </div>

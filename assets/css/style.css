@@ -1,8 +1,8 @@
-/*===============================================
+/*=========================================================================================================
 |  1) Layout - Menu Bar, Header, Content , Footer
 |  2) Typography - Headings, Paragraph, Anchors
 |  3) UI - Colors, Buttons, Icons, Cards, Profile Imgs
-================================================*/
+==========================================================================================================*/
 
 /* Google Fonts */
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700');
@@ -30,7 +30,7 @@ body{
 	overflow-y: hidden; 
 }
 
-/*======= 1) LAYOUT ==========*/
+/*======= 1) LAYOUT =======================================================================================*/
 
 .menubar{
 	position: fixed;
@@ -228,7 +228,7 @@ cursor: pointer;
 }
 
 
-/*======= 2) TYPOGRAPHY ==========*/
+/*======= 2) TYPOGRAPHY ============================================================================*/
 
 .header h1, .header h2, .header h3, .header h4{
 	color:#ffffff;
@@ -247,7 +247,7 @@ p{
 	margin:0;
 }
 
-/*======= 3) UI ==========*/
+/*======= 3) UI =====================================================================================*/
 
 .btn{
 	border-radius: 5px;
@@ -256,7 +256,7 @@ p{
 	color: #ffffff;
 }
 
-.btn:hover, .btn:active, .btn:focus{
+.btn, .btn:hover, .btn:active, .btn:focus{
 	color: #ffffff;
 	text-decoration: none;
 	outline: none;
@@ -274,9 +274,24 @@ a, a:hover, a:active, a:visited, a:focus{
 	cursor: pointer;
 }
 
-.btnColor1{
+.btnColorGreen{
 	background: #0fc469;
 	border-bottom: 2px solid #0da95c;
+}
+
+.btnColorGreen:hover{
+	background: #0daf5e;
+	transition: .5s;
+}
+
+.btnColorBlue{
+	background: #0c3470;
+	border-bottom: 2px solid #01060c;
+}
+
+.btnColorBlue:hover{
+	background: #08234b;
+	transition: .5s;
 }
 
 .btnColorWarning{
@@ -473,11 +488,12 @@ div.ui-dialog-buttonset{
 	position: relative;
 	float: left;
 	width:66.6%;
-	padding: 20px 40px;
+	padding: 20px 40px 20px 45px;
 }
 
 .biz--Modal__card{
 	position: relative;
+	float: left;
 	background: #ffffff;
    -moz-box-shadow:     0 8px 8px -4px #b7d1d6;
    -webkit-box-shadow:  0 8px 8px -4px #b7d1d6;
@@ -490,7 +506,6 @@ div.ui-dialog-buttonset{
 }
 
 .biz--InfoCard{
-	position: relative;
 	width:100%;
     margin-bottom:35px;
     width: 325px;
@@ -610,4 +625,88 @@ width:35%;
 	position: relative;
 	float: right;
 	text-align: right;
+}
+
+.biz--Modal__actions{
+	position: relative;
+	float: left;
+	width:100%;
+	line-height: 55px;
+	padding:0 20px;
+	background: #dae6e9;
+	overflow:none;
+}
+
+.biz--Modal__actions ul{
+	float: right;
+	list-style: none;
+	padding: 0;
+	margin:0;
+}
+
+.biz--Modal__actions ul li{
+	display: inline;
+	padding:0 10px;
+}
+
+.biz--Modal__actions ul li:last-child{
+	padding-right:0;
+}
+
+.biz--Modal__actions ul li button{
+	height: 39px;
+}
+
+.biz--Modal__actions ul li .btn, .biz--Modal__actions ul li .btn:focus, .biz--Modal__actions ul li .btn:active{
+	outline:none;
+}
+
+.biz--Modal__Heading{
+	position: relative;
+	float: left;
+	width: 100%;
+	margin-top: 35px;
+	line-height:28px;
+}
+
+.biz--Modal__Heading h2{
+	position: relative;
+	float: left;
+}
+
+.biz--Modal__Heading a{
+	position: relative;
+	float: right;
+}
+
+.tipCard{
+	width:100%;
+	margin-top:35px;
+	padding: 10px 20px;
+}
+
+.tipCard--UserImg{
+	position:relative;
+	float: left;
+	width:35px;
+}
+
+.tipCard--UserName{
+	position:relative;
+	float: left;
+	line-height: 35px;
+	padding-left: 15px;
+}
+
+.tipCard--Options{
+	position: relative;
+	float: right;
+}
+
+.tipCard--Tip{
+	position: relative;
+	float: left;
+	margin-top: 15px;
+	font-size:16px;
+	padding-bottom:15px;
 }
