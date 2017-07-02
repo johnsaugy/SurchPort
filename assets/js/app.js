@@ -152,11 +152,92 @@ var appFuncs ={
             $(document).on("click", ".card--Result", function(){
             
                 var venueID = $(this).data("venueid");
+                                //${[venueID]}
 
+                $("body").addClass("noScroll");
 
                 var modal = `
                             <div class="result--Modal">
-                                <div class="testModal">${[venueID]}</div>
+                                <div class="result--Modal__Close">CLOSE <img src="assets/imgs/closeModal.png" alt="" /> </div>
+                                <div class="biz--Modal clearfix">
+                                    <div class="biz--Modal__sidebar">
+                                        <div class="biz--TitleCard biz--InfoCard biz--Modal__card">
+                                            <div class="biz--TitleCard__Img">
+                                                <img src="assets/imgs/resultCard.png" alt="">
+                                            </div>
+                                            <div class="biz--InfoCard__content">
+                                                <h3>Thai Food Galore Blah</h3>
+                                                <div class="biz--TitleCard__Rating">
+                                                    <div class="card--Rating__Overlay">
+                                                        <img src="assets/imgs/starsFill.png" alt="">
+                                                    </div>
+                                                    <p>142 Ratings</p>
+                                                </div>
+                                                <div class="biz--TitleCard__Tags">
+                                                    <div class="card--PricePoint"><h3>$$</h3></div>
+                                                    <div class="biz--Tags">
+                                                        <a href="#">Sushi, Asian Fusion, Beer</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="biz--MapCard biz--InfoCard biz--Modal__card">
+                                            <div class="biz--MapCard__Map"></div>
+                                            <div class="biz--InfoCard__content">
+                                                <div class="biz--ContactInfo">
+                                                    <div class="biz--ContactIcon"><img src="assets/imgs/locationModal.png" alt="address"/></div>
+                                                    <div class="biz--ContactDetails">
+                                                        950 N. Glebe Ave. </br>
+                                                        Arlington, VA 22222 </br>
+                                                        <a href="#" class="bizDirectionsLink">Get directions</a>
+                                                    </div>
+                                                </div>
+                                                <div class="biz--ContactInfo">
+                                                    <div class="biz--ContactIcon"><img src="assets/imgs/linkModal.png" alt="address"/></div>
+                                                    <div class="biz--ContactDetails">
+                                                        <a href="#">www.thaitogo.com</a>
+                                                    </div>
+                                                </div>
+                                                <div class="biz--ContactInfo">
+                                                    <div class="biz--ContactIcon"><img src="assets/imgs/phoneModal.png" alt="address"/></div>
+                                                    <div class="biz--ContactDetails">
+                                                        <phone>(240) 445-7859</phone>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="biz--HoursCard biz--InfoCard biz--Modal__card">
+                                            <div class="biz--InfoCard__content">
+                                                <div class="hours--Icon"><img src="assets/imgs/hoursModal.png" alt="address"/></div>
+                                                <div class="hours--Status">Closed until 6 PM</div>
+                                                <div class="hours--Details">
+                                                    <div class="hours--Slot">
+                                                        <p class="dayData">Mon - Fri</p>
+                                                        <div class="timeData">
+                                                            <div class="timeSlot">9:00 AM - 4:00 PM</div>
+                                                            <div class="timeSlot">6:00 PM - 11:30 PM</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="hours--Slot">
+                                                        <p class="dayData">Sat</p>
+                                                        <div class="timeData">
+                                                            <div class="timeSlot">9:00 AM - 6:30 PM</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="hours--Slot">
+                                                        <p class="dayData">Sun</p>
+                                                        <div class="timeData">
+                                                            <div class="timeSlot">9:00 AM - 4:00 PM</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="biz--Modal__content">
+                                        content
+                                    </div>
+                                </div>
                             </div>
                           `;
 
@@ -193,7 +274,7 @@ var appFuncs ={
                    $(".result--Modal").css({
                     position: "fixed",
                     "z-index": "10",
-                    background: "rgba(28, 28, 36, .95)",
+                    background: "rgba(13, 13, 14, 0.95)",
                     left: "0",
                     top: "0",
                     width: "100%",
@@ -207,8 +288,9 @@ var appFuncs ={
                     "z-index": "10",
                    });
 
-                $(".result--Modal").on("click", function(){
-                    $(this).remove();
+                $(".result--Modal__Close").on("click", function(){
+                    $(".result--Modal").remove();
+                    $("body").removeClass("noScroll");
                 })
 
             })

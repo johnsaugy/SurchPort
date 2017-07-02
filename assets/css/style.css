@@ -10,6 +10,7 @@
 body{
 	font-family: "Source Sans Pro", sans-serif;
 	background: #f1f6f7;
+	color: #51838d;
 }
 
 *{
@@ -23,6 +24,10 @@ body{
 .wrap{
 	width:1128px;
 	margin:auto;
+}
+
+.noScroll{
+	overflow-y: hidden; 
 }
 
 /*======= 1) LAYOUT ==========*/
@@ -222,6 +227,67 @@ cursor: pointer;
 	padding-bottom: 165px;
 }
 
+
+/*======= 2) TYPOGRAPHY ==========*/
+
+.header h1, .header h2, .header h3, .header h4{
+	color:#ffffff;
+}
+
+h1, h2, h3, h4{
+	margin:0;
+	font-weight: 400;
+	color: #51838d;
+}
+h2{
+	font-size:26px;
+}
+
+p{
+	margin:0;
+}
+
+/*======= 3) UI ==========*/
+
+.btn{
+	border-radius: 5px;
+	font-weight: 600;
+	outline: none;
+	color: #ffffff;
+}
+
+.btn:hover, .btn:active, .btn:focus{
+	color: #ffffff;
+	text-decoration: none;
+	outline: none;
+}
+
+.btn--FullWidth{
+	width:100%;
+	border-radius: 0;
+}
+
+
+
+a, a:hover, a:active, a:visited, a:focus{
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.btnColor1{
+	background: #0fc469;
+	border-bottom: 2px solid #0da95c;
+}
+
+.btnColorWarning{
+	background: #f8ccc9;
+}
+
+a{
+color:#1784c7;
+}
+
+
 .card--Result{
 	position: relative;
 	float: left;
@@ -243,12 +309,12 @@ cursor: pointer;
     transition: .5s;
 }
 
-.card--Result__Img{
+.card--Result__Img, .biz--TitleCard__Img{
 	position: relative;
 	float: left;
 	width: 325px;
 	height: 222px;
-	background: #666;
+	background: #535d6c;
 	overflow: hidden;
 }
 
@@ -286,7 +352,7 @@ cursor: pointer;
 	float:right;
 }
 
-.card--Rating{
+.card--Rating, .biz--TitleCard__Rating{
 	background-image: url("../imgs/starsBG.png");
 	background-repeat: no-repeat;
 	background-position: left center;
@@ -295,6 +361,7 @@ cursor: pointer;
 .card--Rating__Overlay{
 	width: 100px;
 	overflow-x:hidden; 
+	float: left;
 }
 
 .card--Rating__Overlay img{
@@ -361,94 +428,186 @@ div.ui-dialog-buttonset{
 	display: none;
 }
 
-.testModal{
-	width:75%;
-	height:100%;
-	margin:90px auto 0;
-	background: #f1f6f7;
-	border-radius: 5px;
-	overflow-x:hidden;
-	z-index:100;
-}
 
 .app--Modal{
 	position: absolute;
 	overflow-x: hidden;
-left:0;
+	left:0;
 }
 
-.result--Modal{
-
+.app--Modal__Footer{
+	display: none;
 }
 
-
-
-/*======= 2) TYPOGRAPHY ==========*/
-
-
-h1, h2, h3, h4{
-	margin:0;
-	font-weight: 400;
-}
-h2{
-	font-size:26px;
+.result--Modal__Close{
+	position: fixed;
+	top:30px;
+	right:50px;
+	color:#f0f5f6;
+	font-size:18px;
+	cursor:pointer;
 }
 
-p{
-	margin:0;
+.result--Modal__Close img{
+	position: relative;
+	padding-left:12px;
+	top:-2px;
 }
 
-/*======= 3) UI ==========*/
-
-.btn{
+.biz--Modal{
+	position: relative;
+	width:75%;
+	margin:90px auto 0;
+	background: #f1f6f7;
 	border-radius: 5px;
-	font-weight: 600;
-	outline: none;
-	color: #ffffff;
 }
 
-.btn:hover, .btn:active, .btn:focus{
-	color: #ffffff;
-	text-decoration: none;
-	outline: none;
+.biz--Modal__sidebar{
+	position: relative;
+	float: left;
+	width:33.3%;
+	padding: 0 20px;
 }
 
-.btn--FullWidth{
+.biz--Modal__content{
+	position: relative;
+	float: left;
+	width:66.6%;
+	padding: 20px 40px;
+}
+
+.biz--Modal__card{
+	position: relative;
+	background: #ffffff;
+   -moz-box-shadow:     0 8px 8px -4px #b7d1d6;
+   -webkit-box-shadow:  0 8px 8px -4px #b7d1d6;
+    box-shadow:          0 8px 8px -4px #b7d1d6;
+    border: 1px solid #c6ccd1;
+}
+
+.biz--Modal__card a{
+	color: #198cd2;
+}
+
+.biz--InfoCard{
+	position: relative;
 	width:100%;
-	border-radius: 0;
+    margin-bottom:35px;
+    width: 325px;
+    top:-50px;
+    overflow:hidden;
 }
 
-
-
-a, a:hover, a:active, a:visited, a:focus{
-	text-decoration: none;
-	cursor: pointer;
+.biz--InfoCard__content{
+	position: relative;
+	float: left;
+	padding:20px 15px;
 }
 
-.btnColor1{
-	background: #0fc469;
-	border-bottom: 2px solid #0da95c;
+.biz--TitleCard{
+	border-top:none;
+	border-left: none;
+	border-right:none;
 }
 
-.btnColorWarning{
-	background: #f8ccc9;
+.biz--TitleCard__Rating{
+	width:210px;
+	line-height: 50px;
 }
 
-a{
-color:#1784c7;
+.biz--TitleCard__Rating p{
+	position: relative;
+	float: right;
+	font-size:18px;
+	color: #2e3338;
 }
 
-.caret-right {
-	position: absolute;
-    border-bottom: 5px solid transparent;
-    border-top: 5px solid transparent;
-    border-left: 5px solid #ffffff;
-    display: inline-block;
-    height: 0;
-    vertical-align: top;
-    width: 0;
-    top:50%;
-    left:45%;
+.biz--TitleCard__Tags{
+	line-height: 30px;
+
 }
 
+.card--PricePoint{
+	position: relative;
+	float:left;
+}
 
+.card--PricePoint h3{
+	font-weight: 700;
+}
+
+.biz--Tags{
+	position: relative;
+	float: left;
+	margin-left:15px;
+	font-size:18px;
+}
+
+.biz--Tags a, .biz--Tags a:focus{
+	outline:none;
+}
+
+.biz--MapCard__Map{
+	position: relative;
+	width:100%;
+	height:113px;
+	background: #535d6c;
+	overflow: hidden;
+}
+
+.biz--ContactInfo{
+	position: relative;
+	float:left;
+	margin-top:20px;
+}
+
+.biz--ContactInfo:first-child{
+	margin-top:0;
+}
+
+.biz--ContactDetails, .biz--ContactIcon, .hours--Icon, .hours--Status{
+	position: relative;
+	float:left;
+}
+
+.biz--ContactIcon, .hours--Icon{
+	width:17px;
+}
+
+.biz--ContactDetails, .hours--Status{
+	padding-left:20px;
+	font-size:18px;
+	line-height:1.2em;
+}
+
+.bizDirectionsLink{
+	font-size:14px;
+}
+
+ .hours--Slot{
+ 	position: relative;
+ 	float: left;
+ 	width:100%;
+ 	margin-top:20px;
+ }
+
+.hours--Details{
+	position: relative;
+	float: left;
+	padding-left:37px;
+	font-size:18px;
+	width:100%;
+	overflow:hidden;
+}
+
+.dayData{
+position: relative;
+float: left;
+width:35%;
+}
+
+.timeData{
+	position: relative;
+	float: right;
+	text-align: right;
+}
