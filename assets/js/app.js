@@ -135,6 +135,7 @@ var appFuncs ={
             });
         },
         printSearchResults: function (bizName, starWidth, bizCity, bizImage, bizId){
+            $('html, body').scrollTop(300);
             $(".results").append(`
                 <div class="card--Result" data-venueid="${[bizId]}">
                     <div class="card--Result__Img">
@@ -669,9 +670,9 @@ var appFuncs ={
                     borderRadius:"5px",
                     border:"none",
                     top:"",
-                    "-moz-box-shadow":  "0 5px 3px #b7d1d6",
-                    "-webkit-box-shadow":  "0 5px 3px #b7d1d6",
-                    "box-shadow":          "0 5px 3px #b7d1d6",
+                    "-moz-box-shadow":  "0 15px 18px -5px #b7d1d6",
+                    "-webkit-box-shadow":  "0 15px 18px -5px #b7d1d6",
+                    "box-shadow":          "0 15px 18px -5px #b7d1d6",
                 })
 
                 $(".header--Search__Input").css({

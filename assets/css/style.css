@@ -95,9 +95,9 @@ body{
 	background: #ffffff;
 	border-radius:5px;
 	z-index:2;
-   -moz-box-shadow:     0 5px 3px #b7d1d6;
-   -webkit-box-shadow:  0 5px 3px #b7d1d6;
-    box-shadow:          0 5px 3px #b7d1d6;
+   -moz-box-shadow:     0 15px 18px -5px #b7d1d6;
+   -webkit-box-shadow:  0 15px 18px -5px #b7d1d6;
+    box-shadow:          0 15px 18px -5px #b7d1d6;
 }
 
 .header--Search__Input{
