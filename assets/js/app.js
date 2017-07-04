@@ -46,8 +46,14 @@ const appProps = {
 //                                      search results
 //
 //          venueCard{} -
-//                  clickCard - Will be used in the creation of our pop-up dialog box with all the relevant venue
-//                              information.
+//                  clickCard - Listens for clicks on individual venue cards and passes on the venue id to be used 
+//                              for an AJAX call to the FOURSQUARE API in initVenueModal.
+//
+//                  initVenueModal - Makes an AJAX call to the FOURSQUARE API, and returns and formats tbe data corresponding
+//                                   to our modal pop-up interface. Passes the data to renderVenueModal to be rendered on the 
+//                                   screen. 
+//
+//                  renderVenueModal - Takes the data and renders the modal pop-up on the screen with all the relevant data.
 //
 //          ui{} -
 //                  starRating - Takes the rating value from initSearch, converts it and returns it to be used in 
@@ -167,15 +173,19 @@ var appFuncs ={
                 method: "GET",
             })
             .done(function(response){
-                 console.log(response);
+                // console.log(response);
                 var venue = response.response.venue;
 
                 //====================== GETTING VENUE VALUES to pass on to the Modal Box.
 
                 // Name
+
                 var bizName = venue.name;
 
-                // Rating
+                // Ratings
+
+                // Star Rating Widget
+
                 var bizRating = getStarRating(); // Star Field
 
                 function getStarRating(){
@@ -185,7 +195,9 @@ var appFuncs ={
                     }else{
                         return "0";
                     }
-                }
+                };
+
+                // Number of Ratings   
 
                 var bizRatingNumb = getBizRatingNumb();
 
@@ -195,9 +207,10 @@ var appFuncs ={
                     } else {
                         return "No ratings yet";
                     }
-                }
+                };
 
-                // Price Tier
+                // Price Tier ($$$$)
+
                 var bizPriceTier = getPriceTier();
 
                 function getPriceTier(){
@@ -215,6 +228,7 @@ var appFuncs ={
                 };
 
                 // Category Tags
+
                 var bizTags = getBizTags();
 
                 function getBizTags(){
@@ -232,7 +246,9 @@ var appFuncs ={
                 };
 
                 // Contact Info
+
                 var bizAddress = `${[venue.location.formattedAddress[0]]}</br>${[venue.location.formattedAddress[1]]}`;
+
                 var bizDirections = `https://www.google.com/maps/place/${[venue.location.formattedAddress[0]]} ${[venue.location.formattedAddress[1]]}`;
                 
                 var bizUrl = getBizUrl();
@@ -256,6 +272,7 @@ var appFuncs ={
                 };
 
                 // Business Image
+
                 var bizImage = getBizImage();
 
                 function getBizImage(){
@@ -265,6 +282,7 @@ var appFuncs ={
                 };
 
                 // Business Hours
+
                 var bizOpenStatus = getBizOpenStatus();
 
                 function getBizOpenStatus(){
@@ -295,8 +313,6 @@ var appFuncs ={
                             hoursArray.push(hours);
                             
                         }
-                        console.log(daysArray);
-                        console.log(hoursArray);
 
                         for (var i = 0; i < daysArray.length; i++) {
                             var operatingTimes = `
@@ -315,14 +331,13 @@ var appFuncs ={
 
 
                 // Get Tips
+
                 var bizTips = getBizTips();
 
                 function getBizTips(){
 
                     var tipInfoArray = [];
                     var bizTipsArray = [];
-
-
 
                     if (venue.tips.groups[0].items.length <= 3 ){
                         for (var i = 0; i < venue.tips.groups[0].items.length; i++) {
@@ -533,6 +548,9 @@ var appFuncs ={
                                 </div>
                             </div>
                           `;
+
+
+                    // To Overwrite jQueryUI Modal Styling and  make it look "on-brand".
 
                     $.extend( $.ui.dialog.prototype.options.classes, {
                         "ui-dialog": "app--Modal",
