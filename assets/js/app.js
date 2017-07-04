@@ -234,11 +234,35 @@ var appFuncs ={
                 // Contact Info
                 var bizAddress = `${[venue.location.formattedAddress[0]]}</br>${[venue.location.formattedAddress[1]]}`;
                 var bizDirections = `https://www.google.com/maps/place/${[venue.location.formattedAddress[0]]} ${[venue.location.formattedAddress[1]]}`;
-                var bizUrl = venue.url;
-                var bizPhone = venue.contact.formattedPhone;
+                
+                var bizUrl = getBizUrl();
+
+                function getBizUrl(){
+                    if (venue.hasOwnProperty('url')){
+                        return `<a href="${[venue.url]}" target="_blank" class="venueUrl">${[venue.url]}</a>`;
+                    } else {
+                        return "No website provided"
+                    }
+                };
+               
+                var bizPhone = getBizPhone();
+
+                function getBizPhone(){
+                    if (venue.contact.hasOwnProperty('formattedPhone')){
+                        return venue.contact.formattedPhone;
+                    } else {
+                        return "No phone provided"
+                    }
+                };
 
                 // Business Image
-                var bizImage = `${[venue.bestPhoto.prefix]}325x222${[venue.bestPhoto.suffix]}`;
+                var bizImage = getBizImage();
+
+                function getBizImage(){
+                    if (venue.hasOwnProperty('bestPhoto')){
+                        return `${[venue.bestPhoto.prefix]}325x222${[venue.bestPhoto.suffix]}`;
+                    }
+                };
 
                 // Business Hours
                 var bizOpenStatus = getBizOpenStatus();
@@ -330,19 +354,25 @@ var appFuncs ={
                     var bizPhotosRenderingArray = [];
                     var bizPhotosArray = [];
 
-                    for (var i = 1; i < venue.photos.groups[0].items.length; i++) {
-                        
-                        if (i <= 4){
-                            var venuePhoto = `${[venue.photos.groups[0].items[i].prefix]}135x135${[venue.photos.groups[0].items[i].suffix]}`;
-                            bizPhotosArray.push(venuePhoto);
-                        }
-                    }
+                    if (venue.photos.groups.length != 0){
 
-                    for (var i = 0; i < bizPhotosArray.length; i++) {
-                        var venuePhotoRender = `<a href="#"><img src="${[bizPhotosArray[i]]}" class="img-responsive" alt="" /></a>`;
-                        bizPhotosRenderingArray.push(venuePhotoRender);
+                        for (var i = 1; i < venue.photos.groups[0].items.length; i++) {
+                            
+                            if (i <= 4){
+                                var venuePhoto = `${[venue.photos.groups[0].items[i].prefix]}135x135${[venue.photos.groups[0].items[i].suffix]}`;
+                                bizPhotosArray.push(venuePhoto);
+                            }
+                        }
+
+                        for (var i = 0; i < bizPhotosArray.length; i++) {
+                            var venuePhotoRender = `<a href="#"><img src="${[bizPhotosArray[i]]}" class="img-responsive" alt="" /></a>`;
+                            bizPhotosRenderingArray.push(venuePhotoRender);
+                        }
+                        return bizPhotosRenderingArray.join(" ");
+
+                    } else {
+                        return `No Photos`;
                     }
-                    return bizPhotosRenderingArray.join(" ");
                 };
 
                 //console.log(bizPhotos);
@@ -413,7 +443,9 @@ var appFuncs ={
                                                 <div class="biz--ContactInfo">
                                                     <div class="biz--ContactIcon"><img src="assets/imgs/linkModal.png" alt="website"/></div>
                                                     <div class="biz--ContactDetails">
-                                                        <a href="${[bizUrl]}" target="_blank">${[bizUrl]}</a>
+
+                                                        ${[bizUrl]}
+
                                                     </div>
                                                 </div>
                                                 <div class="biz--ContactInfo">
@@ -498,7 +530,7 @@ var appFuncs ={
 
 
                    $(modal).dialog({
-                      show: { effect: "fadeIn", duration: 200 },
+                      show: { effect: "fadeIn", duration: 100 },
                       draggable:false,
                       resizable: false,
                       width: "100%",
