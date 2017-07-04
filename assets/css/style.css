@@ -285,12 +285,12 @@ a, a:hover, a:active, a:visited, a:focus{
 }
 
 .btnColorBlue{
-	background: #0c3470;
-	border-bottom: 2px solid #01060c;
+	background: #1f67b9;
+	border-bottom: 2px solid #1131a2;
 }
 
 .btnColorBlue:hover{
-	background: #08234b;
+	background: #205898;
 	transition: .5s;
 }
 
@@ -310,9 +310,9 @@ color:#1784c7;
 	height: 328px;
 	background: #ffffff;
 	margin:65px 0 0 70px;
-   -moz-box-shadow:     0 8px 8px #b7d1d6;
+/*   -moz-box-shadow:     0 8px 8px #b7d1d6;
    -webkit-box-shadow:  0 8px 8px #b7d1d6;
-    box-shadow:          0 8px 8px #b7d1d6;
+    box-shadow:          0 8px 8px #b7d1d6;*/
     cursor: pointer;
     border: 1px solid #c6ccd1;
 }
@@ -367,13 +367,29 @@ color:#1784c7;
 	float:right;
 }
 
+.biz--InfoCard__content .biz--TitleCard__Rating{
+	position: relative;
+	float: left;
+	width: 100px;
+	font-size:18px;
+}
+
+.biz--Ratings{
+	position: relative;
+	float: left;
+	line-height: 50px;
+	font-size:18px;
+	padding-left:15px;
+}
+
 .card--Rating, .biz--TitleCard__Rating{
 	background-image: url("../imgs/starsBG.png");
 	background-repeat: no-repeat;
 	background-position: left center;
 }
 
-.card--Rating__Overlay{
+.card--Rating__Overlay, .biz--InfoCard__content .biz--TitleCard__Rating .card--Rating__Overlay {
+	position: relative;
 	width: 100px;
 	overflow-x:hidden; 
 	float: left;
@@ -388,6 +404,12 @@ color:#1784c7;
 	position: relative;
 	padding-right: 10px;
 	top:-2px;
+}
+
+.biz--InfoCard__content .biz--TitleCard__Tags{
+	position: relative;
+	float: left;
+	width: 100%;
 }
 
 .warning--Message{
@@ -496,9 +518,9 @@ div.ui-dialog-buttonset{
 	position: relative;
 	float: left;
 	background: #ffffff;
-   -moz-box-shadow:     0 8px 8px -4px #b7d1d6;
+/*   -moz-box-shadow:     0 8px 8px -4px #b7d1d6;
    -webkit-box-shadow:  0 8px 8px -4px #b7d1d6;
-    box-shadow:          0 8px 8px -4px #b7d1d6;
+    box-shadow:          0 8px 8px -4px #b7d1d6;*/
     border: 1px solid #c6ccd1;
 }
 
@@ -534,7 +556,7 @@ div.ui-dialog-buttonset{
 .biz--TitleCard__Rating p{
 	position: relative;
 	float: right;
-	font-size:18px;
+	font-size:16px;
 	color: #2e3338;
 }
 
@@ -546,6 +568,7 @@ div.ui-dialog-buttonset{
 .card--PricePoint{
 	position: relative;
 	float:left;
+	margin-right:15px;
 }
 
 .card--PricePoint h3{
@@ -555,8 +578,7 @@ div.ui-dialog-buttonset{
 .biz--Tags{
 	position: relative;
 	float: left;
-	margin-left:15px;
-	font-size:18px;
+	font-size:16px;
 }
 
 .biz--Tags a, .biz--Tags a:focus{
@@ -575,6 +597,7 @@ div.ui-dialog-buttonset{
 	position: relative;
 	float:left;
 	margin-top:20px;
+	width:100%;
 }
 
 .biz--ContactInfo:first-child{
@@ -586,13 +609,14 @@ div.ui-dialog-buttonset{
 	float:left;
 }
 
+
 .biz--ContactIcon, .hours--Icon{
 	width:17px;
 }
 
 .biz--ContactDetails, .hours--Status{
 	padding-left:20px;
-	font-size:18px;
+	font-size:16px;
 	line-height:1.2em;
 }
 
@@ -611,7 +635,7 @@ div.ui-dialog-buttonset{
 	position: relative;
 	float: left;
 	padding-left:37px;
-	font-size:18px;
+	font-size:16px;
 	width:100%;
 	overflow:hidden;
 }
@@ -707,6 +731,7 @@ width:35%;
 .tipCard--Tip{
 	position: relative;
 	float: left;
+	width:100%;
 	margin-top: 15px;
 	font-size:16px;
 	padding-bottom:15px;

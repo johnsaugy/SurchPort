@@ -45,7 +45,7 @@ const appProps = {
 //                  printSearchResults -Takes the values from initSearch and renders them onto the page as our
 //                                      search results
 //
-//          click{} -
+//          venueCard{} -
 //                  clickCard - Will be used in the creation of our pop-up dialog box with all the relevant venue
 //                              information.
 //
@@ -146,7 +146,7 @@ var appFuncs ={
             `);
         },
     },
-    click:{
+    venueCard:{
         clickCard: function(){
 
             $(document).on("click", ".card--Result", function(){
@@ -154,7 +154,225 @@ var appFuncs ={
                 var venueID = $(this).data("venueid");
                                 //${[venueID]}
 
+                appFuncs.venueCard.initVenueModal(venueID);
+
+
+            })
+        },
+        initVenueModal: function(venueID){
+            console.log(venueID);
+            $.ajax({
+                url: `https://api.foursquare.com/v2/venues/${[venueID]}?v=20170630&client_id=${[appProps.fs.clientID]}
+                &client_secret=${[appProps.fs.clientSECRET]}`,
+                method: "GET",
+            })
+            .done(function(response){
+                 console.log(response);
+                var venue = response.response.venue;
+
+                //====================== GETTING VENUE VALUES to pass on to the Modal Box.
+
+                // Name
+                var bizName = venue.name;
+
+                // Rating
+                var bizRating = getStarRating(); // Star Field
+
+                function getStarRating(){
+                    if (venue.hasOwnProperty('ratingSignals')){
+                        var starFieldWidth = appFuncs.ui.starRating(venue.rating);
+                        return `${[starFieldWidth]} ratings`;
+                    }else{
+                        return "0";
+                    }
+                }
+
+                var bizRatingNumb = getBizRatingNumb();
+
+                function getBizRatingNumb(){
+                    if (venue.ratingSignals >= 1){
+                        return `${[venue.ratingSignals]} ratings`;
+                    } else {
+                        return "No ratings yet";
+                    }
+                }
+
+                // Price Tier
+                var bizPriceTier = getPriceTier();
+
+                function getPriceTier(){
+                    var priceIconsArray = [];
+
+                    if (venue.hasOwnProperty('price')){
+                        for (var i = 0; i < venue.price.tier; i++) {
+                            var dollarSign = "$";
+                            priceIconsArray.push(dollarSign);
+
+                        }
+                    } 
+                    return priceIconsArray.join("");
+                    
+                };
+
+                // Category Tags
+                var bizTags = getBizTags();
+
+                function getBizTags(){
+                    var tagsArray = [];
+
+                        for (var i = 0; i < venue.categories.length; i++) {
+
+                            if (i <= 1 ){
+                                var tags = "<a href='#''>"+venue.categories[i].name+"</a>";
+                                tagsArray.push(tags);
+                            }
+                        }
+
+                    return tagsArray.join(", ")
+                };
+
+                // Contact Info
+                var bizAddress = `${[venue.location.formattedAddress[0]]}</br>${[venue.location.formattedAddress[1]]}`;
+                var bizDirections = `https://www.google.com/maps/place/${[venue.location.formattedAddress[0]]} ${[venue.location.formattedAddress[1]]}`;
+                var bizUrl = venue.url;
+                var bizPhone = venue.contact.formattedPhone;
+
+                // Business Image
+                var bizImage = `${[venue.bestPhoto.prefix]}325x222${[venue.bestPhoto.suffix]}`;
+
+                // Business Hours
+                var bizOpenStatus = getBizOpenStatus();
+
+                function getBizOpenStatus(){
+                    
+                    if (venue.hasOwnProperty('hours')){
+                        return venue.hours.status;
+                    } else {
+                        return "No time information provided.";
+                    }
+                }
+
+                var bizTimeFrames = getBizTimeFrames();
+
+                function getBizTimeFrames(){
+
+                    // Too Hard to figure out formatting
+                };
+
+
+                // Get Tips
+                var bizTips = getBizTips();
+
+                function getBizTips(){
+
+                    var tipInfoArray = [];
+                    var bizTipsArray = [];
+
+                    if (venue.tips.groups[0].items.length < 3 ){
+                        for (var i = 0; i < venue.tips.groups[0].items.length; i++) {
+                            var tipInfo =[
+                                // Image
+                               `${[venue.tips.groups[0].items[i].user.photo.prefix]}35x35${[venue.tips.groups[0].items[i].user.photo.suffix]}`,
+                                // Name
+                                `${[venue.tips.groups[0].items[i].user.firstName]} ${[venue.tips.groups[0].items[i].user.lastName]}`,
+                                // Tip
+                                `${[venue.tips.groups[0].items[i].text]}`,
+                            ];
+                            tipInfoArray.push(tipInfo);
+
+                        }
+                    } else {
+                        for (var i = 0; i <= 3; i++) {
+                            var tipInfo =[
+                                // Image
+                               `${[venue.tips.groups[0].items[i].user.photo.prefix]}35x35${[venue.tips.groups[0].items[i].user.photo.suffix]}`,
+                                // Name
+                                `${[venue.tips.groups[0].items[i].user.firstName]} ${[venue.tips.groups[0].items[i].user.lastName]}`,
+                                // Tip
+                                `${[venue.tips.groups[0].items[i].text]}`,
+                            ];
+                            tipInfoArray.push(tipInfo);
+
+                        }
+                    }
+
+
+                    for (var i = 0; i < tipInfoArray.length; i++) {
+                        var tipCard = `
+                            <div class="tipCard biz--Modal__card">
+                                <div class="tipCard--Header">
+                                    <img src="${[tipInfoArray[i][0]]}" class="tipCard--UserImg img-circle " alt="user image" />
+                                    <h4 class="tipCard--UserName">${[tipInfoArray[i][1]]}</h4>
+                                    <a href="#" class="tipCard--Options" ><img src="assets/imgs/tipCardOptions.png" alt="options" /></a>
+                                </div>
+                                <div class="tipCard--Tip">
+                                    ${[tipInfoArray[i][2]]}
+                                </div>
+                            </div>
+                        `;
+
+                        bizTipsArray.push(tipCard);
+
+
+                    }
+
+                    return bizTipsArray.join(" ");
+                    //console.log(bizTipsArray);
+
+
+                };
+
+                // Get Photos
+
+                var bizPhotos = getBizPhotos();
+
+                function getBizPhotos(){
+                    var bizPhotosRenderingArray = [];
+                    var bizPhotosArray = [];
+
+                    for (var i = 1; i < venue.photos.groups[0].items.length; i++) {
+                        
+                        if (i <= 4){
+                            var venuePhoto = `${[venue.photos.groups[0].items[i].prefix]}135x135${[venue.photos.groups[0].items[i].suffix]}`;
+                            bizPhotosArray.push(venuePhoto);
+                        }
+                    }
+
+                    for (var i = 0; i < bizPhotosArray.length; i++) {
+                        var venuePhotoRender = `<a href="#"><img src="${[bizPhotosArray[i]]}" class="img-responsive" alt="" /></a>`;
+                        bizPhotosRenderingArray.push(venuePhotoRender);
+                    }
+                    return bizPhotosRenderingArray.join(" ");
+                };
+
+                //console.log(bizPhotos);
+                //console.log(venue.photos.groups[0].items[1].prefix +"135x135"+ venue.photos.groups[0].items[1].suffix); // venue photos
+                //console.log(bizTips);
+                // console.log(venue.name);
+                // console.log(venue.url);
+                // console.log(venue.price.tier); //convert number to dollar signs.
+                // console.log(venue.ratingSignals, "number of ratings");
+                // console.log(venue.rating); // for star field
+                // console.log(venue.tips.groups[0].items[0]); // user object
+                // console.log(venue.tips.groups[0].items[0].text); // user tip text
+                // console.log(venue.tips.groups[0].items[0].user.firstName + " " + venue.tips.groups[0].items[0].user.lastName); //user name
+                // console.log(venue.tips.groups[0].items[0].user.photo.prefix+"35x35"+venue.tips.groups[0].items[0].user.photo.suffix); //user photo
+                // console.log(venue.bestPhoto.prefix+"325x222"+venue.bestPhoto.suffix); // venue Photo
+                // console.log(venue.contact.formattedPhone) // phone
+                // console.log(venue.location.formattedAddress[0], venue.location.formattedAddress[1] ) // address
+                //console.log(venue.categories[0].name) // tags
+                // console.log(venue.hours.status); // open status
+                // console.log(venue.hours.timeframes[0].days); //time Frames days.
+                // console.log(venue.hours.timeframes[0].open[0].renderedTime); //time Frames hours 
+
+                appFuncs.venueCard.renderVenueModal(bizImage, bizName, bizRating, bizRatingNumb, bizPriceTier, bizTags, bizAddress, bizDirections, bizUrl, bizPhone, bizOpenStatus, bizTips, bizPhotos);
+
+            })
+        },
+        renderVenueModal: function (bizImage ,bizName, bizRating, bizRatingNumb, bizPriceTier, bizTags, bizAddress, bizDirections, bizUrl, bizPhone, bizOpenStatus, bizTips, bizPhotos){
                 $("body").addClass("noScroll");
+
+
 
                 var modal = `
                             <div class="result--Modal">
@@ -163,20 +381,20 @@ var appFuncs ={
                                     <div class="biz--Modal__sidebar">
                                         <div class="biz--TitleCard biz--InfoCard biz--Modal__card">
                                             <div class="biz--TitleCard__Img">
-                                                <img src="assets/imgs/resultCard.png" alt="">
+                                                <img src="${[bizImage]}" alt="">
                                             </div>
                                             <div class="biz--InfoCard__content">
-                                                <h3>Thai Food Galore Blah</h3>
+                                                <h3>${[bizName]}</h3>
                                                 <div class="biz--TitleCard__Rating">
-                                                    <div class="card--Rating__Overlay">
+                                                    <div class="card--Rating__Overlay" style="width:${[bizRating]}">
                                                         <img src="assets/imgs/starsFill.png" alt="">
                                                     </div>
-                                                    <p>142 Ratings</p>
                                                 </div>
+                                                <p class="biz--Ratings">${[bizRatingNumb]}</p>
                                                 <div class="biz--TitleCard__Tags">
-                                                    <div class="card--PricePoint"><h3>$$</h3></div>
+                                                    <div class="card--PricePoint"><h3>${[bizPriceTier]}</h3></div>
                                                     <div class="biz--Tags">
-                                                        <a href="#">Sushi, Asian Fusion, Beer</a>
+                                                        ${[bizTags]}
                                                     </div>
                                                 </div>
                                             </div>
@@ -187,21 +405,21 @@ var appFuncs ={
                                                 <div class="biz--ContactInfo">
                                                     <div class="biz--ContactIcon"><img src="assets/imgs/locationModal.png" alt="address"/></div>
                                                     <div class="biz--ContactDetails">
-                                                        950 N. Glebe Ave. </br>
-                                                        Arlington, VA 22222 </br>
-                                                        <a href="#" class="bizDirectionsLink">Get directions</a>
+                                                        ${[bizAddress]}
+                                                        </br>
+                                                        <a href="${[bizDirections]}" target="_blank" class="bizDirectionsLink">Get directions</a>
                                                     </div>
                                                 </div>
                                                 <div class="biz--ContactInfo">
                                                     <div class="biz--ContactIcon"><img src="assets/imgs/linkModal.png" alt="website"/></div>
                                                     <div class="biz--ContactDetails">
-                                                        <a href="#">www.thaitogo.com</a>
+                                                        <a href="${[bizUrl]}" target="_blank">${[bizUrl]}</a>
                                                     </div>
                                                 </div>
                                                 <div class="biz--ContactInfo">
                                                     <div class="biz--ContactIcon"><img src="assets/imgs/phoneModal.png" alt="phone"/></div>
                                                     <div class="biz--ContactDetails">
-                                                        <phone>(240) 445-7859</phone>
+                                                        <phone>${[bizPhone]}</phone>
                                                     </div>
                                                 </div>
                                             </div>
@@ -209,7 +427,7 @@ var appFuncs ={
                                         <div class="biz--HoursCard biz--InfoCard biz--Modal__card">
                                             <div class="biz--InfoCard__content">
                                                 <div class="hours--Icon"><img src="assets/imgs/hoursModal.png" alt="hours"/></div>
-                                                <div class="hours--Status">Closed until 6 PM</div>
+                                                <div class="hours--Status">${[bizOpenStatus]}</div>
                                                 <div class="hours--Details">
                                                     <div class="hours--Slot">
                                                         <p class="dayData">Mon - Fri</p>
@@ -251,45 +469,17 @@ var appFuncs ={
                                             <h2>Tips</h2>
                                             <a href="#">See more</a>
                                         </div>
-                                        <div class="tipCard biz--Modal__card">
-                                            <div class="tipCard--Header">
-                                                <img src="assets/imgs/ui3.jpg" class="tipCard--UserImg img-circle " alt="user image" />
-                                                <h4 class="tipCard--UserName">Joseph Smith</h4>
-                                                <a href="#" class="tipCard--Options" ><img src="assets/imgs/tipCardOptions.png" alt="options" /></a>
-                                            </div>
-                                            <div class="tipCard--Tip">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam fuga non quasi amet fugit dolorum tenetur pariatur voluptatem ea iusto eaque, dolor suscipit soluta illo veniam aut mollitia cum veritatis.
-                                            </div>
-                                        </div>
-                                        <div class="tipCard biz--Modal__card">
-                                            <div class="tipCard--Header">
-                                                <img src="assets/imgs/ui4.jpg" class="tipCard--UserImg img-circle " alt="user image" />
-                                                <h4 class="tipCard--UserName">Anyanka Chase</h4>
-                                                <a href="#" class="tipCard--Options" ><img src="assets/imgs/tipCardOptions.png" alt="options" /></a>
-                                            </div>
-                                            <div class="tipCard--Tip">
-                                                <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero iste suscipit provident vitae quos tenetur explicabo molestias natus, recusandae hic nesciunt repellat odit facere necessitatibus, quae culpa molestiae ab! Sit!</div><div>Mollitia, deleniti non quas laborum architecto facere quisquam. Soluta cupiditate provident nobis voluptates, recusandae voluptatem fugiat atque sequi eos a voluptate neque incidunt odit vel nisi ullam reprehenderit, illo accusantium.</div>
-                                            </div>
-                                        </div>
-                                        <div class="tipCard biz--Modal__card">
-                                            <div class="tipCard--Header">
-                                                <img src="assets/imgs/ui1.jpg" class="tipCard--UserImg img-circle " alt="user image" />
-                                                <h4 class="tipCard--UserName">Alex Harris</h4>
-                                                <a href="#" class="tipCard--Options" ><img src="assets/imgs/tipCardOptions.png" alt="options" /></a>
-                                            </div>
-                                            <div class="tipCard--Tip">
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum pariatur quaerat possimus minima numquam, ab necessitatibus beatae nisi quo inventore ad, libero tenetur animi eveniet rem totam culpa, doloribus eos.
-                                            </div>
-                                        </div>
+
+                                            ${[bizTips]}
+
                                         <div class="biz--Modal__Heading">
                                             <h2>Photos</h2>
                                             <a href="#">See more</a>
                                         </div>
                                         <div class="photosCard biz--Modal__card ">
-                                            <a href="#"><img src="assets/imgs/ui1.jpg" class="img-responsive" alt="" /></a>
-                                            <a href="#"><img src="assets/imgs/ui2.png" class="img-responsive" alt="" /></a>
-                                            <a href="#"><img src="assets/imgs/ui3.jpg" class="img-responsive" alt="" /></a>
-                                            <a href="#"><img src="assets/imgs/ui4.jpg" class="img-responsive" alt="" /></a>
+
+                                            ${[bizPhotos]}
+
                                         </div>
                                     </div>
                                 </div>
@@ -347,8 +537,6 @@ var appFuncs ={
                     $(".result--Modal").remove();
                     $("body").removeClass("noScroll");
                 })
-
-            })
         },
     },
     ui:{
@@ -495,6 +683,6 @@ appFuncs.search.listenSearch();
 appFuncs.ui.listenScroll();
 
 // Listen for Click Events
-appFuncs.click.clickCard();
+appFuncs.venueCard.clickCard();
 
 })
