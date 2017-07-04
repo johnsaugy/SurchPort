@@ -279,8 +279,38 @@ var appFuncs ={
                 var bizTimeFrames = getBizTimeFrames();
 
                 function getBizTimeFrames(){
+                    var renderedTimesArray = [];
+                    var daysArray = [];
+                    var hoursArray = [];
 
-                    // Too Hard to figure out formatting
+                    if (venue.hasOwnProperty('hours')){
+
+                        for (var i = 0; i < venue.hours.timeframes.length; i++) {
+                            var days = venue.hours.timeframes[i].days;
+                            daysArray.push(days);
+                        }
+
+                        for (var i = 0; i < venue.hours.timeframes.length; i++) {
+                            var hours = venue.hours.timeframes[i].open[0].renderedTime;
+                            hoursArray.push(hours);
+                            
+                        }
+                        console.log(daysArray);
+                        console.log(hoursArray);
+
+                        for (var i = 0; i < daysArray.length; i++) {
+                            var operatingTimes = `
+                                <div class="hours--Slot">
+                                    <p class="dayData">${[daysArray[i]]}</p>
+                                    <div class="timeData">
+                                        <div class="timeSlot">${[hoursArray[i]]}</div>
+                                    </div>
+                                </div>
+                            `;
+                            renderedTimesArray.push(operatingTimes);
+                        }
+                        return renderedTimesArray.join("");
+                    }
                 };
 
 
@@ -292,7 +322,9 @@ var appFuncs ={
                     var tipInfoArray = [];
                     var bizTipsArray = [];
 
-                    if (venue.tips.groups[0].items.length < 3 ){
+
+
+                    if (venue.tips.groups[0].items.length <= 3 ){
                         for (var i = 0; i < venue.tips.groups[0].items.length; i++) {
                             var tipInfo =[
                                 // Image
@@ -395,11 +427,11 @@ var appFuncs ={
                 // console.log(venue.hours.timeframes[0].days); //time Frames days.
                 // console.log(venue.hours.timeframes[0].open[0].renderedTime); //time Frames hours 
 
-                appFuncs.venueCard.renderVenueModal(bizImage, bizName, bizRating, bizRatingNumb, bizPriceTier, bizTags, bizAddress, bizDirections, bizUrl, bizPhone, bizOpenStatus, bizTips, bizPhotos);
+                appFuncs.venueCard.renderVenueModal(bizImage, bizName, bizRating, bizRatingNumb, bizPriceTier, bizTags, bizAddress, bizDirections, bizUrl, bizPhone, bizOpenStatus, bizTips, bizPhotos, bizTimeFrames);
 
             })
         },
-        renderVenueModal: function (bizImage ,bizName, bizRating, bizRatingNumb, bizPriceTier, bizTags, bizAddress, bizDirections, bizUrl, bizPhone, bizOpenStatus, bizTips, bizPhotos){
+        renderVenueModal: function (bizImage ,bizName, bizRating, bizRatingNumb, bizPriceTier, bizTags, bizAddress, bizDirections, bizUrl, bizPhone, bizOpenStatus, bizTips, bizPhotos, bizTimeFrames){
                 $("body").addClass("noScroll");
 
 
@@ -461,25 +493,9 @@ var appFuncs ={
                                                 <div class="hours--Icon"><img src="assets/imgs/hoursModal.png" alt="hours"/></div>
                                                 <div class="hours--Status">${[bizOpenStatus]}</div>
                                                 <div class="hours--Details">
-                                                    <div class="hours--Slot">
-                                                        <p class="dayData">Mon - Fri</p>
-                                                        <div class="timeData">
-                                                            <div class="timeSlot">9:00 AM - 4:00 PM</div>
-                                                            <div class="timeSlot">6:00 PM - 11:30 PM</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="hours--Slot">
-                                                        <p class="dayData">Sat</p>
-                                                        <div class="timeData">
-                                                            <div class="timeSlot">9:00 AM - 6:30 PM</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="hours--Slot">
-                                                        <p class="dayData">Sun</p>
-                                                        <div class="timeData">
-                                                            <div class="timeSlot">9:00 AM - 4:00 PM</div>
-                                                        </div>
-                                                    </div>
+
+                                                    ${[bizTimeFrames]}
+
                                                 </div>
                                             </div>
                                         </div>
