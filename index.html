@@ -136,8 +136,19 @@
 <!--================= Javascript =================-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script>
+	function gAutoComplete(){
+		    var locInput = document.getElementById("locationSearch");
+			var options = {                    
+			    types: ["(cities)"],
+			};
+		    
+            var autocomplete = new google.maps.places.Autocomplete(locInput,options);
+	}
+</script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?&key=AIzaSyBT4EaumZ2atEY3EoRywiZtd1aAbJdoId0&libraries=places&callback=gAutoComplete"></script>
 <script src="assets/js/app.js"></script>
-<!-- <script src="assets/js/ui.js"></script> -->
+
 </body>
 </html>

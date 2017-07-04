@@ -22,6 +22,10 @@ const appProps = {
         clientSECRET: "WN5TRJG5MXTFC3IXRWFFZ4WVELP13KPFB42DXZVJJ3MRLDTA",
     },    
     gm: {},
+    yp:{ // Second attempt at Yelp
+        clientID: "kbaF0Pq5hRBy-rS3XyW6DA" ,
+        clientSECRET: "U7Fz1QOE5lBceMirdVqyk8DdWffmxA7fCFcorGCu024dqvKNsTkvmV7GTGPmoCfA" ,
+    }
 }
 
 //===============================================================================================================
@@ -178,7 +182,9 @@ var appFuncs ={
                 method: "GET",
             })
             .done(function(response){
-                // console.log(response);
+                console.log(response);
+
+
                 var venue = response.response.venue;
 
                 //====================== GETTING VENUE VALUES to pass on to the Modal Box.
@@ -427,6 +433,10 @@ var appFuncs ={
                     }
                 };
 
+                // Get Map
+// venue.location.lng, venue.location.lat
+                var bizMap = appFuncs.ui.googleMapsFrame(bizAddress, venue.location.lat, venue.location.lng );
+
                 //console.log(bizPhotos);
                 //console.log(venue.photos.groups[0].items[1].prefix +"135x135"+ venue.photos.groups[0].items[1].suffix); // venue photos
                 //console.log(bizTips);
@@ -447,11 +457,11 @@ var appFuncs ={
                 // console.log(venue.hours.timeframes[0].days); //time Frames days.
                 // console.log(venue.hours.timeframes[0].open[0].renderedTime); //time Frames hours 
 
-                appFuncs.venueCard.renderVenueModal(bizImage, bizName, bizRating, bizRatingNumb, bizPriceTier, bizTags, bizAddress, bizDirections, bizUrl, bizPhone, bizOpenStatus, bizTips, bizPhotos, bizTimeFrames);
+                appFuncs.venueCard.renderVenueModal(bizImage, bizName, bizRating, bizRatingNumb, bizPriceTier, bizTags, bizAddress, bizDirections, bizUrl, bizPhone, bizOpenStatus, bizTips, bizPhotos, bizTimeFrames, bizMap);
 
             })
         },
-        renderVenueModal: function (bizImage ,bizName, bizRating, bizRatingNumb, bizPriceTier, bizTags, bizAddress, bizDirections, bizUrl, bizPhone, bizOpenStatus, bizTips, bizPhotos, bizTimeFrames){
+        renderVenueModal: function (bizImage ,bizName, bizRating, bizRatingNumb, bizPriceTier, bizTags, bizAddress, bizDirections, bizUrl, bizPhone, bizOpenStatus, bizTips, bizPhotos, bizTimeFrames, bizMap){
                 $("body").addClass("noScroll");
 
 
@@ -482,7 +492,9 @@ var appFuncs ={
                                             </div>
                                         </div>
                                         <div class="biz--MapCard biz--InfoCard biz--Modal__card">
-                                            <div class="biz--MapCard__Map"></div>
+                                            <div class="biz--MapCard__Map">
+                                                ${[bizMap]}
+                                            </div>
                                             <div class="biz--InfoCard__content">
                                                 <div class="biz--ContactInfo">
                                                     <div class="biz--ContactIcon"><img src="assets/imgs/locationModal.png" alt="address"/></div>
@@ -613,6 +625,20 @@ var appFuncs ={
         },
     },
     ui:{
+        googleMapsFrame: function(bizAddress, lat, lng){
+            // AIzaSyDRH-_Jw8Jwf_T6LZt3Y5XJh1KSOsPqO0I
+            var mapframe = `
+                <iframe
+                  width="100%"
+                  height="200"
+                  frameborder="0" style="border:0"
+                  scrolling="no"
+                  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDRH-_Jw8Jwf_T6LZt3Y5XJh1KSOsPqO0I
+                    &q=${[bizAddress]}&center=${[lat]},${[lng]}">
+                </iframe>
+            `;
+            return mapframe
+        },
         starRating: function(rating){
             var starsRating = rating/10;
             var starsWidthNum = 100;
@@ -760,5 +786,8 @@ appFuncs.venueCard.clickCard();
 
 // Bootstrap Tooltip Init
 $('[data-toggle="tooltip"]').tooltip(); 
+
+
+
 
 });
