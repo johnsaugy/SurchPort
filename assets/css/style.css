@@ -63,7 +63,7 @@ body{
 	padding-top: 25px;
 }
 
-.menubar--Nav ul li:hover{
+.menubar--Nav ul li img:hover{
 	opacity: .25;
 	transition: .5s;
 }

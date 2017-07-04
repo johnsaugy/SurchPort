@@ -10,6 +10,10 @@ $(document).ready(function(){
 //              fs{} - Stores Foursquare API keys.
 //              gm{} - Will store Google Maps keys.
 //
+//
+// NOTE: It's better practice to store API keys on the backend. So if we have time before our presentation we 
+//       should place them on our Firebase Server. For now, storing them here is fine.
+//
 //===============================================================================================================
 
 const appProps = {
@@ -237,7 +241,7 @@ var appFuncs ={
                         for (var i = 0; i < venue.categories.length; i++) {
 
                             if (i <= 1 ){
-                                var tags = "<a href='#''>"+venue.categories[i].name+"</a>";
+                                var tags = "<a href='#/''>"+venue.categories[i].name+"</a>";
                                 tagsArray.push(tags);
                             }
                         }
@@ -374,7 +378,7 @@ var appFuncs ={
                                 <div class="tipCard--Header">
                                     <img src="${[tipInfoArray[i][0]]}" class="tipCard--UserImg img-circle " alt="user image" />
                                     <h4 class="tipCard--UserName">${[tipInfoArray[i][1]]}</h4>
-                                    <a href="#" class="tipCard--Options" ><img src="assets/imgs/tipCardOptions.png" alt="options" /></a>
+                                    <a href="#/" class="tipCard--Options" ><img src="assets/imgs/tipCardOptions.png" alt="options" /></a>
                                 </div>
                                 <div class="tipCard--Tip">
                                     ${[tipInfoArray[i][2]]}
@@ -412,7 +416,7 @@ var appFuncs ={
                         }
 
                         for (var i = 0; i < bizPhotosArray.length; i++) {
-                            var venuePhotoRender = `<a href="#"><img src="${[bizPhotosArray[i]]}" class="img-responsive" alt="" /></a>`;
+                            var venuePhotoRender = `<a href="#/"><img src="${[bizPhotosArray[i]]}" class="img-responsive" alt="" /></a>`;
                             bizPhotosRenderingArray.push(venuePhotoRender);
                         }
                         return bizPhotosRenderingArray.join(" ");
@@ -521,23 +525,23 @@ var appFuncs ={
                                                 <li><button class="btn btnColorGreen">ADD TO FAVORITES</button></li>
                                                 <li><button class="btn btnColorBlue">ADD TO LIST</button></li>
                                                 <li>
-                                                    <a href="#"><img src="assets/imgs/shareModal.png" alt="share"/></a>
+                                                    <a href="#/" data-toggle="tooltip" title="Share"><img src="assets/imgs/shareModal.png" alt="share" /></a>
                                                 </li>
                                                 <li>
-                                                    <a href="#"><img src="assets/imgs/optionsModal.png" alt="other options"/></a>
+                                                    <a href="#/" data-toggle="tooltip" title="Options"><img src="assets/imgs/optionsModal.png" alt="other options"/></a>
                                                 </li>
                                             </ul>
                                         </div>
                                         <div class="biz--Modal__Heading">
                                             <h2>Tips</h2>
-                                            <a href="#">See more</a>
+                                            <a href="#/">See more</a>
                                         </div>
 
                                             ${[bizTips]}
 
                                         <div class="biz--Modal__Heading">
                                             <h2>Photos</h2>
-                                            <a href="#">See more</a>
+                                            <a href="#/">See more</a>
                                         </div>
                                         <div class="photosCard biz--Modal__card ">
 
@@ -603,6 +607,8 @@ var appFuncs ={
                     $(".result--Modal").remove();
                     $("body").removeClass("noScroll");
                 })
+
+                $('[data-toggle="tooltip"]').tooltip(); 
         },
     },
     ui:{
@@ -751,4 +757,7 @@ appFuncs.ui.listenScroll();
 // Listen for Click Events
 appFuncs.venueCard.clickCard();
 
-})
+// Bootstrap Tooltip Init
+$('[data-toggle="tooltip"]').tooltip(); 
+
+});
