@@ -435,7 +435,9 @@ var appFuncs ={
 
                 // Get Map
 
-                var bizMap = appFuncs.ui.googleMapsFrame(bizAddress, venue.location.lat, venue.location.lng );
+                var constructedAddr = venue.location.address + venue.location.city + venue.location.postalCode;
+
+                var bizMap = appFuncs.ui.googleMapsFrame(constructedAddr, venue.location.lat, venue.location.lng );
 
 
                 // venue.location.lng, venue.location.lat
@@ -495,7 +497,7 @@ var appFuncs ={
                                             </div>
                                         </div>
                                         <div class="biz--MapCard biz--InfoCard biz--Modal__card">
-                                            <div class="biz--MapCard__Map">
+                                            <div class="biz--MapCard__Map" id="map">
                                                 ${[bizMap]}
                                             </div>
                                             <div class="biz--InfoCard__content">
@@ -629,7 +631,7 @@ var appFuncs ={
     },
     ui:{
         googleMapsFrame: function(bizAddress, lat, lng){
-            // AIzaSyDRH-_Jw8Jwf_T6LZt3Y5XJh1KSOsPqO0I
+            //AIzaSyDRH-_Jw8Jwf_T6LZt3Y5XJh1KSOsPqO0I
             var mapframe = `
                 <iframe
                   width="100%"
