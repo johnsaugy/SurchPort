@@ -106,7 +106,7 @@ var appFuncs ={
         },
         initSearch: function(search, location){
             $.ajax({
-                url:`https://api.foursquare.com/v2/venues/explore?v=20170630&query=${[search]}&near=${[location]}&limit=9&venuePhotos=1&client_id=${[appProps.fs.clientID]}
+                url:`https://api.foursquare.com/v2/venues/explore?v=20170630&query=${[search]}&near=${[location]}&limit=27&venuePhotos=1&client_id=${[appProps.fs.clientID]}
                 &client_secret=${[appProps.fs.clientSECRET]}`,
                 method: "GET"
             })
@@ -202,7 +202,7 @@ var appFuncs ={
                 function getStarRating(){
                     if (venue.hasOwnProperty('ratingSignals')){
                         var starFieldWidth = appFuncs.ui.starRating(venue.rating);
-                        return `${[starFieldWidth]} ratings`;
+                        return `${[starFieldWidth]}`;
                     }else{
                         return "0";
                     }
@@ -434,12 +434,15 @@ var appFuncs ={
                 };
 
                 // Get Map
-// venue.location.lng, venue.location.lat
+
                 var bizMap = appFuncs.ui.googleMapsFrame(bizAddress, venue.location.lat, venue.location.lng );
 
+
+                // venue.location.lng, venue.location.lat
                 //console.log(bizPhotos);
                 //console.log(venue.photos.groups[0].items[1].prefix +"135x135"+ venue.photos.groups[0].items[1].suffix); // venue photos
                 //console.log(bizTips);
+                //console.log(venue.id);
                 // console.log(venue.name);
                 // console.log(venue.url);
                 // console.log(venue.price.tier); //convert number to dollar signs.
@@ -457,7 +460,7 @@ var appFuncs ={
                 // console.log(venue.hours.timeframes[0].days); //time Frames days.
                 // console.log(venue.hours.timeframes[0].open[0].renderedTime); //time Frames hours 
 
-                appFuncs.venueCard.renderVenueModal(bizImage, bizName, bizRating, bizRatingNumb, bizPriceTier, bizTags, bizAddress, bizDirections, bizUrl, bizPhone, bizOpenStatus, bizTips, bizPhotos, bizTimeFrames, bizMap);
+                appFuncs.venueCard.renderVenueModal(bizImage, bizName, bizRating, bizRatingNumb, bizPriceTier, bizTags, bizAddress, bizDirections, bizUrl, bizPhone, bizOpenStatus, bizTips, bizPhotos, bizTimeFrames, bizMap );
 
             })
         },
