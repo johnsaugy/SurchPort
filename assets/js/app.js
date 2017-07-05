@@ -21,11 +21,19 @@ const appProps = {
         clientID: "IHMKAGTH1OPVZB11OJUS3YVATBRZGA4GXJFAAIVLJHSVYIVX",
         clientSECRET: "WN5TRJG5MXTFC3IXRWFFZ4WVELP13KPFB42DXZVJJ3MRLDTA",
     },    
-    gm: {},
-    yp:{ // Second attempt at Yelp
-        clientID: "kbaF0Pq5hRBy-rS3XyW6DA" ,
-        clientSECRET: "U7Fz1QOE5lBceMirdVqyk8DdWffmxA7fCFcorGCu024dqvKNsTkvmV7GTGPmoCfA" ,
-    }
+    gm: {
+        key: "AIzaSyDRH-_Jw8Jwf_T6LZt3Y5XJh1KSOsPqO0I",
+    },
+    fBase: {
+        config: {
+                apiKey: "AIzaSyDKSWcHpLVdAqZCM6LA74lPZxxYHPt9BLk",
+                authDomain: "spfavorites-1b505.firebaseapp.com",
+                databaseURL: "https://spfavorites-1b505.firebaseio.com",
+                projectId: "spfavorites-1b505",
+                storageBucket: "",
+                messagingSenderId: "301745670269"
+              },
+    },
 }
 
 //===============================================================================================================
@@ -188,6 +196,10 @@ var appFuncs ={
                 var venue = response.response.venue;
 
                 //====================== GETTING VENUE VALUES to pass on to the Modal Box.
+
+                // Biz Id
+
+                var bizId = venue.id;
 
                 // Name
 
@@ -462,11 +474,11 @@ var appFuncs ={
                 // console.log(venue.hours.timeframes[0].days); //time Frames days.
                 // console.log(venue.hours.timeframes[0].open[0].renderedTime); //time Frames hours 
 
-                appFuncs.venueCard.renderVenueModal(bizImage, bizName, bizRating, bizRatingNumb, bizPriceTier, bizTags, bizAddress, bizDirections, bizUrl, bizPhone, bizOpenStatus, bizTips, bizPhotos, bizTimeFrames, bizMap );
+                appFuncs.venueCard.renderVenueModal(bizImage, bizName, bizRating, bizRatingNumb, bizPriceTier, bizTags, bizAddress, bizDirections, bizUrl, bizPhone, bizOpenStatus, bizTips, bizPhotos, bizTimeFrames, bizMap, bizId );
 
             })
         },
-        renderVenueModal: function (bizImage ,bizName, bizRating, bizRatingNumb, bizPriceTier, bizTags, bizAddress, bizDirections, bizUrl, bizPhone, bizOpenStatus, bizTips, bizPhotos, bizTimeFrames, bizMap){
+        renderVenueModal: function (bizImage ,bizName, bizRating, bizRatingNumb, bizPriceTier, bizTags, bizAddress, bizDirections, bizUrl, bizPhone, bizOpenStatus, bizTips, bizPhotos, bizTimeFrames, bizMap, bizId){
                 $("body").addClass("noScroll");
 
 
@@ -540,7 +552,7 @@ var appFuncs ={
                                     <div class="biz--Modal__content">
                                         <div class="biz--Modal__actions">
                                             <ul>
-                                                <li><button class="btn btnColorGreen">ADD TO FAVORITES</button></li>
+                                                <li><button class="btn btnColorGreen favThisBtn" data-venueid="${[bizId]}">ADD TO FAVORITES</button></li>
                                                 <li><button class="btn btnColorBlue">ADD TO LIST</button></li>
                                                 <li>
                                                     <a href="#/" data-toggle="tooltip" title="Share"><img src="assets/imgs/shareModal.png" alt="share" /></a>
@@ -627,6 +639,47 @@ var appFuncs ={
                 })
 
                 $('[data-toggle="tooltip"]').tooltip(); 
+        },
+    },
+    favorites:{
+        listenFav: function(){
+            $(document).on("click", ".favThisBtn", function(){
+                var venueID = $(this).attr("data-venueid");
+                appFuncs.favorites.initFavStorage(venueID);
+            })
+        },
+        initFavStorage: function(venueID){
+
+              
+               var db = firebase.database();
+
+                console.log(venueID);
+
+                var favVenue = venueID;
+
+                 db.ref().push({
+                        favVenue: favVenue,
+                })
+               
+
+                 console.log(db);
+        },
+        loadFavSection: function(){
+            $("#favoritesBtn").on("click", function(){
+
+                 var db = firebase.database();
+
+                 db.ref().on("child_added", function(snapshot){
+                    var favObj = snapshot.val().favVenue;
+                    
+
+                    $(".results").html("");
+                    $(".content--Heading").html("Favorites");
+
+                    
+                 });
+
+            });
         },
     },
     ui:{
@@ -786,13 +839,18 @@ appFuncs.search.listenSearch();
 // Listen for Scroll Event
 appFuncs.ui.listenScroll();
 
-// Listen for Click Events
+// Listen for Venue Card Click Events
 appFuncs.venueCard.clickCard();
+
+// Listen for Favorites Click Events
+appFuncs.favorites.listenFav();
+appFuncs.favorites.loadFavSection();
 
 // Bootstrap Tooltip Init
 $('[data-toggle="tooltip"]').tooltip(); 
 
-
+// Initialize Firebase
+firebase.initializeApp(appProps.fBase.config);
 
 
 });
