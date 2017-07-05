@@ -667,19 +667,67 @@ var appFuncs ={
         loadFavSection: function(){
             $("#favoritesBtn").on("click", function(){
 
+                $(".results").html("");
+                $(".content--Heading").html("Favorites");
+
                  var db = firebase.database();
 
                  db.ref().on("child_added", function(snapshot){
                     var favObj = snapshot.val().favVenue;
-                    
 
-                    $(".results").html("");
-                    $(".content--Heading").html("Favorites");
+                    snapshot.forEach(function(favObj){
+                   
+                       var favVenueId = favObj.val();
+                       var favArray = [];
+                       //console.log(favVenueId);
+                       favArray.push(favVenueId);
+                       //console.log(favArray);
 
-                    
+                        $.ajax({
+                            url: `https://api.foursquare.com/v2/venues/${[favVenueId]}?v=20170630&client_id=${[appProps.fs.clientID]}
+                            &client_secret=${[appProps.fs.clientSECRET]}`,
+                            method: "GET",
+                        })
+                        .done(function(response){
+                           // console.log(response);
+                            var fav = response.response.venue;
+                            var favId = favVenueId;
+                            var favName = fav.name;
+                            var favImage = `${[fav.bestPhoto.prefix]}325x222${[fav.bestPhoto.suffix]}` ;
+                            var favRating = fav.rating;
+                            var favStarWidth = appFuncs.ui.starRating(favRating);
+                            var favLocation = fav.location.city;
+                            console.log(favStarWidth);
+                            appFuncs.favorites.renderFavPage(favId, favName, favImage, favStarWidth, favLocation)
+                        });
+
+                    });      
+                                          
                  });
 
             });
+        },
+        renderFavPage: function(favId, favName, favImage, favStarWidth, favLocation){
+           // console.log(favId);
+            $(".results").append(`
+                <div class="card--Result" data-venueid="${[favId]}">
+                    <div class="card--Result__Img">
+                        <img src="${[favImage]}" alt="" width="100%" class="img-responsive">
+                        <div class="shadow"></div>
+                    </div>
+                    <div class="card--Result__Info">
+                        <h3 class="card--Title" title="${[favName]}">${[favName]}</h3>
+                        <div class="card--Rating">
+                            <div class="card--Rating__Overlay" style=width:${[favStarWidth]}>
+                                <img src="assets/imgs/starsFill.png" alt="">
+                            </div>
+                        </div>
+                        <div class="card--Location">
+                            <p><span><img src="assets/imgs/cardLocation.png" alt=""></span>${[favLocation]}</p>
+                        </div>
+                    </div>
+                </div>
+                `);
         },
     },
     ui:{
@@ -702,7 +750,7 @@ var appFuncs ={
             var starsWidthNum = 100;
             var newWidth = starsRating * starsWidthNum;
            
-            return (newWidth+1)+"%";
+            return Math.ceil((newWidth+1))+"%";
         },
         listenScroll: function(){
 
