@@ -1,6 +1,5 @@
 $(document).ready(function(){
 
-// beginning of moved to config.js
 //===============================================================================================================
 //  appProps Object
 //---------------------------------------------------------------------------------------------------------------
@@ -17,26 +16,25 @@ $(document).ready(function(){
 //
 //===============================================================================================================
 
-// const appProps = {
-//     fs: { //  FOURSQUARE API    
-//         clientID: "IHMKAGTH1OPVZB11OJUS3YVATBRZGA4GXJFAAIVLJHSVYIVX",
-//         clientSECRET: "WN5TRJG5MXTFC3IXRWFFZ4WVELP13KPFB42DXZVJJ3MRLDTA",
-//     },    
-//     gm: {
-//         key: "AIzaSyDRH-_Jw8Jwf_T6LZt3Y5XJh1KSOsPqO0I",
-//     },
-//     fBase: {
-//         config: {
-//                 apiKey: "AIzaSyDKSWcHpLVdAqZCM6LA74lPZxxYHPt9BLk",
-//                 authDomain: "spfavorites-1b505.firebaseapp.com",
-//                 databaseURL: "https://spfavorites-1b505.firebaseio.com",
-//                 projectId: "spfavorites-1b505",
-//                 storageBucket: "",
-//                 messagingSenderId: "301745670269"
-//               },
-//     },
-// }
-// end of moved to config.js
+const appProps = {
+    fs: { //  FOURSQUARE API    
+        clientID: "IHMKAGTH1OPVZB11OJUS3YVATBRZGA4GXJFAAIVLJHSVYIVX",
+        clientSECRET: "WN5TRJG5MXTFC3IXRWFFZ4WVELP13KPFB42DXZVJJ3MRLDTA",
+    },    
+    gm: {
+        key: "AIzaSyDRH-_Jw8Jwf_T6LZt3Y5XJh1KSOsPqO0I",
+    },
+    fBase: {
+        config: {
+                apiKey: "AIzaSyDKSWcHpLVdAqZCM6LA74lPZxxYHPt9BLk",
+                authDomain: "spfavorites-1b505.firebaseapp.com",
+                databaseURL: "https://spfavorites-1b505.firebaseio.com",
+                projectId: "spfavorites-1b505",
+                storageBucket: "",
+                messagingSenderId: "301745670269"
+              },
+    },
+}
 
 //===============================================================================================================
 // END appProps Object
@@ -144,19 +142,21 @@ var appFuncs ={
                     // Get Rating Div Width value
                     var starWidth = appFuncs.ui.starRating(bizRating);
 
+
                     appFuncs.search.printSearchResults(bizName, starWidth, bizCity, bizImage, bizId);
                 }
             });
         },
-        printSearchResults: function (bizName, starWidth, bizCity, bizImage, bizId){
+        printSearchResults: function (bizName, starWidth, bizCity, bizImage, bizId ){
             $('html, body').scrollTop(300);
             $(".results").append(`
                 <div class="card--Result" data-venueid="${[bizId]}">
                     <div class="card--Result__Img">
                         <img src="${[bizImage]}" alt="" width="100%" class="img-responsive">
-                        <div class="shadow"></div>
+                        <div class="shadow cardLaunch" data-venueid="${[bizId]}"></div>
+                                    <div class="cardFavBtn favThisBtn" data-venueid="${[bizId]}"><i class="fa fa-star-o favStar " aria-hidden="true"></i></div>
                     </div>
-                    <div class="card--Result__Info">
+                    <div class="card--Result__Info cardLaunch" data-venueid="${[bizId]}">
                         <h3 class="card--Title" title="${[bizName]}">${[bizName]}</h3>
                         <div class="card--Rating">
                             <div class="card--Rating__Overlay" style=width:${[starWidth]}>
@@ -174,8 +174,8 @@ var appFuncs ={
     venueCard:{
         clickCard: function(){
 
-            $(document).on("click", ".card--Result", function(){
-            
+            $(document).on("click", ".cardLaunch", function(){
+                console.log("clicked")
                 var venueID = $(this).data("venueid");
                                 //${[venueID]}
 
@@ -454,6 +454,7 @@ var appFuncs ={
                 var bizMap = appFuncs.ui.googleMapsFrame(constructedAddr, venue.location.lat, venue.location.lng );
 
 
+
                 // venue.location.lng, venue.location.lat
                 //console.log(bizPhotos);
                 //console.log(venue.photos.groups[0].items[1].prefix +"135x135"+ venue.photos.groups[0].items[1].suffix); // venue photos
@@ -554,7 +555,8 @@ var appFuncs ={
                                     <div class="biz--Modal__content">
                                         <div class="biz--Modal__actions">
                                             <ul>
-                                                <li><button class="btn btnColorGreen favThisBtn" data-venueid="${[bizId]}">ADD TO FAVORITES</button></li>
+                                                <li><button class="btn btnColorGreen favThisBtn" data-venueid="${[bizId]}">  <i class="fa fa-star-o favStar" aria-hidden="true"></i>
+ADD TO FAVORITES</button></li>
                                                 <li><button class="btn btnColorBlue">ADD TO LIST</button></li>
                                                 <li>
                                                     <a href="#/" data-toggle="tooltip" title="Share"><img src="assets/imgs/shareModal.png" alt="share" /></a>
@@ -647,7 +649,23 @@ var appFuncs ={
         listenFav: function(){
             $(document).on("click", ".favThisBtn", function(){
                 var venueID = $(this).attr("data-venueid");
-                appFuncs.favorites.initFavStorage(venueID);
+                var db = firebase.database();
+
+                var $this = $(this); //In order to target the correct button inside the firebase function
+
+                db.ref().orderByChild("favVenue").equalTo(venueID).once("value", function(snapshot) {
+                    var favMatch = snapshot.val();
+                    if (favMatch){
+                      console.log("exists!");
+                    } else{
+                        appFuncs.favorites.initFavStorage(venueID);
+                        $(".favStar", $this).removeClass("fa-star-o").addClass("fa-star").css({opacity:"1"});
+                    }
+                });
+
+                
+
+
             })
         },
         initFavStorage: function(venueID){
@@ -711,13 +729,13 @@ var appFuncs ={
         },
         renderFavPage: function(favId, favName, favImage, favStarWidth, favLocation){
            // console.log(favId);
-            $(".results").append(`
+            $(".results").prepend(`
                 <div class="card--Result" data-venueid="${[favId]}">
                     <div class="card--Result__Img">
                         <img src="${[favImage]}" alt="" width="100%" class="img-responsive">
-                        <div class="shadow"></div>
+                        <div class="shadow cardLaunch" data-venueid="${[favId]}"></div>
                     </div>
-                    <div class="card--Result__Info">
+                    <div class="card--Result__Info cardLaunch" data-venueid="${[favId]}">
                         <h3 class="card--Title" title="${[favName]}">${[favName]}</h3>
                         <div class="card--Rating">
                             <div class="card--Rating__Overlay" style=width:${[favStarWidth]}>
