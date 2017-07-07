@@ -95,6 +95,7 @@ var appFuncs ={
         listenSearch: function(){
             $("#searchSubmit").on("click",function(event){
                 event.preventDefault();
+                appFuncs.favorites.favClicked = false;
 
                 var bizSearch = $("#bizSearch").val().trim();
                 var locationSearch = $("#locationSearch").val().trim();
@@ -120,7 +121,7 @@ var appFuncs ={
             })
             .done(function(response){
                 // API Object Path
-                console.log(response);
+               // console.log(response);
                 const biz = response.response.groups[0].items;
 
                 $(".results").html('');
@@ -149,6 +150,7 @@ var appFuncs ={
         },
         printSearchResults: function (bizName, starWidth, bizCity, bizImage, bizId ){
             $('html, body').scrollTop(300);
+            appFuncs.favorites.favClicked = false;
             $(".results").append(`
                 <div class="card--Result" data-venueid="${[bizId]}">
                     <div class="card--Result__Img">
@@ -175,7 +177,7 @@ var appFuncs ={
         clickCard: function(){
 
             $(document).on("click", ".cardLaunch", function(){
-                console.log("clicked")
+              //  console.log("clicked")
                 var venueID = $(this).data("venueid");
                                 //${[venueID]}
 
@@ -185,14 +187,14 @@ var appFuncs ={
             })
         },
         initVenueModal: function(venueID){
-            console.log(venueID);
+          //  console.log(venueID);
             $.ajax({
                 url: `https://api.foursquare.com/v2/venues/${[venueID]}?v=20170630&client_id=${[appProps.fs.clientID]}
                 &client_secret=${[appProps.fs.clientSECRET]}`,
                 method: "GET",
             })
             .done(function(response){
-                console.log(response);
+               // console.log(response);
 
 
                 var venue = response.response.venue;
@@ -646,6 +648,7 @@ ADD TO FAVORITES</button></li>
         },
     },
     favorites:{
+        favClicked: false,
         listenFav: function(){
             $(document).on("click", ".favThisBtn", function(){
                 var venueID = $(this).attr("data-venueid");
@@ -656,7 +659,7 @@ ADD TO FAVORITES</button></li>
                 db.ref().orderByChild("favVenue").equalTo(venueID).once("value", function(snapshot) {
                     var favMatch = snapshot.val();
                     if (favMatch){
-                      console.log("exists!");
+                      //console.log("exists!");
                     } else{
                         appFuncs.favorites.initFavStorage(venueID);
                         $(".favStar", $this).removeClass("fa-star-o").addClass("fa-star").css({opacity:"1"});
@@ -673,7 +676,7 @@ ADD TO FAVORITES</button></li>
               
                var db = firebase.database();
 
-                console.log(venueID);
+                //console.log(venueID);
 
                 var favVenue = venueID;
 
@@ -682,11 +685,13 @@ ADD TO FAVORITES</button></li>
                 })
                
 
-                 console.log(db);
+                 //console.log(db);
         },
         loadFavSection: function(){
             $("#favoritesBtn").on("click", function(){
 
+                appFuncs.favorites.favClicked = true;
+            
                 $(".results").html("");
                 $(".content--Heading").html("Favorites");
 
@@ -717,7 +722,7 @@ ADD TO FAVORITES</button></li>
                             var favRating = fav.rating;
                             var favStarWidth = appFuncs.ui.starRating(favRating);
                             var favLocation = fav.location.city;
-                            console.log(favStarWidth);
+
                             appFuncs.favorites.renderFavPage(favId, favName, favImage, favStarWidth, favLocation)
                         });
 
@@ -725,9 +730,12 @@ ADD TO FAVORITES</button></li>
                                           
                  });
 
+           
+
             });
         },
         renderFavPage: function(favId, favName, favImage, favStarWidth, favLocation){
+            if (appFuncs.favorites.favClicked === true){
            // console.log(favId);
             $(".results").prepend(`
                 <div class="card--Result" data-venueid="${[favId]}">
@@ -748,7 +756,11 @@ ADD TO FAVORITES</button></li>
                     </div>
                 </div>
                 `);
-        },
+            
+           }
+           
+        }
+
     },
     ui:{
         googleMapsFrame: function(bizAddress, lat, lng){
@@ -912,7 +924,13 @@ appFuncs.venueCard.clickCard();
 
 // Listen for Favorites Click Events
 appFuncs.favorites.listenFav();
-appFuncs.favorites.loadFavSection();
+
+if (appFuncs.favorites.favClicked === false){
+    console.log("clicked");
+    appFuncs.favorites.loadFavSection();
+}
+
+
 
 // Bootstrap Tooltip Init
 $('[data-toggle="tooltip"]').tooltip(); 
