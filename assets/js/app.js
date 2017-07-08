@@ -71,7 +71,21 @@ const appProps = {
 //
 //                  renderVenueModal - Takes the data and renders the modal pop-up on the screen with all the relevant data.
 //
+//          favorites{} -
+//                  favClicked - Tracks when the favorites button is clicked. Is toggled to avoid Duplicates on search results.
+//
+//                  listenFav - Listens for when the Add to Favorites button is clicked, and passes the venue-id to initFavStorage.
+//
+//                  initFavStorage - Stores venue-id in Firebase Database. 
+//
+//                  loadFavSection - When the Favorites Section button is clicked, gets all the favorited venue-id's from Firebase
+//                                   and uses an AJAX call to get all the relevant information to pass to renderFavPage.
+//
+//                  renderFavPage- Takes the data from loadFavSection and renders it on screen.
+//
 //          ui{} -
+//                  googleMapsFrame - Renders the Google Maps to be used in Venue Modal Pop-up.
+//
 //                  starRating - Takes the rating value from initSearch, converts it and returns it to be used in 
 //                               the rendering of the 5-Star field.
 // 
@@ -115,7 +129,7 @@ var appFuncs ={
         },
         initSearch: function(search, location){
             $.ajax({
-                url:`https://api.foursquare.com/v2/venues/explore?v=20170630&query=${[search]}&near=${[location]}&limit=27&venuePhotos=1&client_id=${[appProps.fs.clientID]}
+                url:`https://api.foursquare.com/v2/venues/explore?v=20170630&query=${[search]}&near=${[location]}&limit=30&venuePhotos=1&client_id=${[appProps.fs.clientID]}
                 &client_secret=${[appProps.fs.clientSECRET]}`,
                 method: "GET"
             })
@@ -144,11 +158,12 @@ var appFuncs ={
                     var starWidth = appFuncs.ui.starRating(bizRating);
 
 
-                    appFuncs.search.printSearchResults(bizName, starWidth, bizCity, bizImage, bizId);
+                    appFuncs.search.printSearchResults(bizName, starWidth, bizCity, bizImage, bizId );
                 }
+            
             });
         },
-        printSearchResults: function (bizName, starWidth, bizCity, bizImage, bizId ){
+        printSearchResults: function (bizName, starWidth, bizCity, bizImage, bizId  ){
             $('html, body').scrollTop(300);
             appFuncs.favorites.favClicked = false;
             $(".results").append(`
@@ -456,29 +471,6 @@ var appFuncs ={
                 var bizMap = appFuncs.ui.googleMapsFrame(constructedAddr, venue.location.lat, venue.location.lng );
 
 
-
-                // venue.location.lng, venue.location.lat
-                //console.log(bizPhotos);
-                //console.log(venue.photos.groups[0].items[1].prefix +"135x135"+ venue.photos.groups[0].items[1].suffix); // venue photos
-                //console.log(bizTips);
-                //console.log(venue.id);
-                // console.log(venue.name);
-                // console.log(venue.url);
-                // console.log(venue.price.tier); //convert number to dollar signs.
-                // console.log(venue.ratingSignals, "number of ratings");
-                // console.log(venue.rating); // for star field
-                // console.log(venue.tips.groups[0].items[0]); // user object
-                // console.log(venue.tips.groups[0].items[0].text); // user tip text
-                // console.log(venue.tips.groups[0].items[0].user.firstName + " " + venue.tips.groups[0].items[0].user.lastName); //user name
-                // console.log(venue.tips.groups[0].items[0].user.photo.prefix+"35x35"+venue.tips.groups[0].items[0].user.photo.suffix); //user photo
-                // console.log(venue.bestPhoto.prefix+"325x222"+venue.bestPhoto.suffix); // venue Photo
-                // console.log(venue.contact.formattedPhone) // phone
-                // console.log(venue.location.formattedAddress[0], venue.location.formattedAddress[1] ) // address
-                //console.log(venue.categories[0].name) // tags
-                // console.log(venue.hours.status); // open status
-                // console.log(venue.hours.timeframes[0].days); //time Frames days.
-                // console.log(venue.hours.timeframes[0].open[0].renderedTime); //time Frames hours 
-
                 appFuncs.venueCard.renderVenueModal(bizImage, bizName, bizRating, bizRatingNumb, bizPriceTier, bizTags, bizAddress, bizDirections, bizUrl, bizPhone, bizOpenStatus, bizTips, bizPhotos, bizTimeFrames, bizMap, bizId );
 
             })
@@ -648,8 +640,8 @@ ADD TO FAVORITES</button></li>
         },
     },
     favorites:{
-        favClicked: false,
-        listenFav: function(){
+        favClicked: false, // Keeps track of when the Favorite Button was clicked in order to avoid Duplicates from appearing on search page.
+        listenFav: function(){ // Listens for when the Favorites Button was clicked.
             $(document).on("click", ".favThisBtn", function(){
                 var venueID = $(this).attr("data-venueid");
                 var db = firebase.database();
@@ -671,23 +663,19 @@ ADD TO FAVORITES</button></li>
 
             })
         },
-        initFavStorage: function(venueID){
+        initFavStorage: function(venueID){ // Stores the Favorited Venue Id in Firebase Database.
 
               
                var db = firebase.database();
-
-                //console.log(venueID);
 
                 var favVenue = venueID;
 
                  db.ref().push({
                         favVenue: favVenue,
                 })
-               
 
-                 //console.log(db);
         },
-        loadFavSection: function(){
+        loadFavSection: function(){ // Populates the Favorites section with all the locations the user saved.
             $("#favoritesBtn").on("click", function(){
 
                 appFuncs.favorites.favClicked = true;
@@ -704,9 +692,9 @@ ADD TO FAVORITES</button></li>
                    
                        var favVenueId = favObj.val();
                        var favArray = [];
-                       //console.log(favVenueId);
+                       
                        favArray.push(favVenueId);
-                       //console.log(favArray);
+                       
 
                         $.ajax({
                             url: `https://api.foursquare.com/v2/venues/${[favVenueId]}?v=20170630&client_id=${[appProps.fs.clientID]}
@@ -926,10 +914,8 @@ appFuncs.venueCard.clickCard();
 appFuncs.favorites.listenFav();
 
 if (appFuncs.favorites.favClicked === false){
-    console.log("clicked");
     appFuncs.favorites.loadFavSection();
 }
-
 
 
 // Bootstrap Tooltip Init
